@@ -1,38 +1,189 @@
-const progressCtx = document.getElementById('progressChart').getContext('2d');
-new Chart(progressCtx, {
-  type: 'doughnut',
-  data: {
-    labels: ['Завершено', 'Осталось'],
-    datasets: [{
-      data: [0, 100],
-      backgroundColor: ['#5a4fcf', '#e0e0e0'],
-      borderWidth: 1
-    }]
-  },
-  options: {
-    cutout: '70%',
-    plugins: {
-      legend: { display: false }
-    }
-  }
-});
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
 
-const violationsCtx = document.getElementById('violationsChart').getContext('2d');
-new Chart(violationsCtx, {
-  type: 'line',
-  data: {
-    labels: ['ПНТ', 'ВТ', 'СР', 'ПТ', 'СБ', 'ВС'],
-    datasets: [{
-      label: 'Нарушения',
-      data: [0, 1, 2, 3, 4, 5],
-      fill: false,
-      borderColor: '#5a4fcf',
-      tension: 0.3
-    }]
-  },
-  options: {
-    plugins: {
-      legend: { display: false }
-    }
+body {
+  background: #f5f7fb;
+  color: #1f1f1f;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  background: #1e2a3a;
+  color: white;
+  padding: 20px;
+  width: 220px;
+}
+
+.sidebar h2 {
+  margin-bottom: 30px;
+  font-size: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  padding: 12px 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.sidebar li.active,
+.sidebar li:hover {
+  background-color: #2e3b50;
+}
+
+.main {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.topbar h1 {
+  font-size: 28px;
+}
+
+.filters .user-icon {
+  background-color: #333;
+  color: white;
+  font-weight: bold;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  line-height: 32px;
+  border-radius: 50%;
+}
+
+/* GRID СЕТКИ */
+.stats-grid,
+.middle-grid,
+.bottom-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.stats-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.middle-grid {
+  grid-template-columns: 1fr 1fr;
+}
+
+.bottom-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* КАРТОЧКИ */
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.card.stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 120px;
+}
+
+.card.stat .number {
+  font-size: 24px;
+  margin-top: auto;
+}
+
+.card.stat div:first-child {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* ЦВЕТА */
+.green {
+  color: #2ecc71;
+}
+
+.red {
+  color: #e74c3c;
+}
+
+.purple {
+  background-color: #5a4fcf;
+  color: white;
+}
+
+.orange {
+  background-color: #f39c12;
+  color: white;
+}
+
+.change {
+  font-size: 14px;
+  margin-left: 4px;
+}
+
+/* ПРОГРЕСС + НАРУШЕНИЯ */
+.middle-grid .card {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ЗАДАЧИ */
+.card ul {
+  padding-left: 20px;
+}
+
+.card li {
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+/* КАЛЕНДАРЬ */
+.card.calendar {
+  font-size: 14px;
+}
+
+.weekdays, .days {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+
+.days b {
+  background: #5a4fcf;
+  color: white;
+  border-radius: 50%;
+  padding: 4px 8px;
+}
+
+/* АДАПТИВНОСТЬ */
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-});
+  .middle-grid,
+  .bottom-grid {
+    grid-template-columns: 1fr;
+  }
+}
