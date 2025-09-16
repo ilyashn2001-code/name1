@@ -45,7 +45,7 @@ body {
 
 .main {
   flex: 1;
-  padding: 20px;
+  padding: 30px;
   overflow-y: auto;
 }
 
@@ -53,30 +53,31 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .topbar h1 {
-  font-size: 28px;
+  font-size: 32px;
 }
 
 .filters .user-icon {
   background-color: #333;
   color: white;
   font-weight: bold;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   text-align: center;
-  line-height: 32px;
+  line-height: 36px;
   border-radius: 50%;
 }
 
-/* GRID СЕТКИ */
+/* СЕТКИ И ОТСТУПЫ */
 .stats-grid,
 .middle-grid,
 .bottom-grid {
   display: grid;
-  gap: 20px;
+  gap: 30px;
+  margin-bottom: 30px;
 }
 
 .stats-grid {
@@ -94,29 +95,33 @@ body {
 /* КАРТОЧКИ */
 .card {
   background: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .card.stat {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 120px;
+  height: 140px;
 }
 
-.card.stat .number {
-  font-size: 24px;
-  margin-top: auto;
-}
-
-.card.stat div:first-child {
-  font-size: 16px;
+.card.stat .title {
+  font-size: 18px;
   font-weight: 500;
 }
 
-/* ЦВЕТА */
+.card.stat .number {
+  font-size: 28px;
+  margin-top: auto;
+}
+
+.change {
+  font-size: 16px;
+  margin-left: 6px;
+}
+
 .green {
   color: #2ecc71;
 }
@@ -135,54 +140,74 @@ body {
   color: white;
 }
 
-.change {
-  font-size: 14px;
-  margin-left: 4px;
-}
-
-/* ПРОГРЕСС + НАРУШЕНИЯ */
-.middle-grid .card {
-  height: 300px;
+/* ГРАФИКИ */
+.chart-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding: 20px;
   align-items: center;
+  justify-content: space-around;
+  height: 320px;
 }
 
-/* ЗАДАЧИ */
+/* ЗАДАЧИ, ПОСЛЕДНИЕ ОБЪЕКТЫ */
 .card ul {
+  list-style: disc;
   padding-left: 20px;
 }
 
 .card li {
-  margin-bottom: 6px;
-  font-size: 14px;
+  margin-bottom: 8px;
+  font-size: 15px;
 }
 
 /* КАЛЕНДАРЬ */
 .card.calendar {
+  text-align: center;
+}
+
+.weekdays {
   font-size: 14px;
+  margin-bottom: 10px;
 }
 
-.weekdays, .days {
+.days {
   display: flex;
-  justify-content: space-between;
-  padding-top: 10px;
+  justify-content: center;
+  gap: 10px;
 }
 
-.days b {
-  background: #5a4fcf;
-  color: white;
+.days .day {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
   border-radius: 50%;
-  padding: 4px 8px;
 }
 
-/* АДАПТИВНОСТЬ */
-@media (max-width: 768px) {
+.days .past {
+  color: #999;
+}
+
+.days .today {
+  background-color: #5a4fcf;
+  color: white;
+}
+
+.days .future {
+  color: #333;
+}
+
+/* АДАПТИВ */
+@media (max-width: 900px) {
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .middle-grid,
+  .middle-grid {
+    grid-template-columns: 1fr;
+  }
   .bottom-grid {
     grid-template-columns: 1fr;
   }
