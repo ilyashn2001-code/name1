@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LTC Control Dashboard</title>
+  <title>LTC Dashboard</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -26,12 +26,6 @@
       <header class="topbar">
         <h1>Дашборд</h1>
         <div class="filters">
-          <select>
-            <option>Регион: Все</option>
-          </select>
-          <select>
-            <option>За 7 дней</option>
-          </select>
           <div class="user-icon">U</div>
         </div>
       </header>
@@ -56,18 +50,18 @@
       </section>
 
       <section class="middle-grid">
-        <div class="card progress">
+        <div class="card">
           <h3>Прогресс по объектам</h3>
           <canvas id="progressChart"></canvas>
         </div>
-        <div class="card violations">
+        <div class="card">
           <h3>Нарушения по времени</h3>
           <canvas id="violationsChart"></canvas>
         </div>
       </section>
 
       <section class="bottom-grid">
-        <div class="card tasks">
+        <div class="card">
           <h3>Сегодняшние задачи</h3>
           <ul>
             <li>Проверить журнал объекта №5</li>
@@ -75,12 +69,12 @@
             <li>Обновить статус объекта</li>
           </ul>
         </div>
-        <div class="card calendar">
+        <div class="card">
           <h3>Календарь</h3>
           <div class="weekdays">ПН ВТ СР ЧТ ПТ СБ ВС</div>
           <div class="days">26 28 <b>29</b> 2 9</div>
         </div>
-        <div class="card last-objects">
+        <div class="card">
           <h3>Последние объекты</h3>
           <ul>
             <li>📌 Объект NP3</li>
@@ -94,5 +88,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-Create index.html
-
