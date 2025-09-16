@@ -32,29 +32,29 @@
 
       <section class="stats-grid">
         <div class="card stat purple">
-          <div>Всего объектов</div>
-          <div class="number">0 <span class="change green">▲ 5.4%</span></div>
+          <div class="title">Всего объектов</div>
+          <div class="number">7 <span class="change green">▲ 5.4%</span></div>
         </div>
         <div class="card stat green">
-          <div>Активные объекты</div>
-          <div class="number">0 <span class="change green">▲ 2%</span></div>
+          <div class="title">Активные объекты</div>
+          <div class="number">3 <span class="change green">▲ 2%</span></div>
         </div>
         <div class="card stat orange">
-          <div>На рассмотрении</div>
-          <div class="number">0</div>
+          <div class="title">На рассмотрении</div>
+          <div class="number">5</div>
         </div>
         <div class="card stat red">
-          <div>Нарушения</div>
-          <div class="number">0 <span class="change red">▼ 0%</span></div>
+          <div class="title">Нарушения</div>
+          <div class="number">1 <span class="change red">▼ 10%</span></div>
         </div>
       </section>
 
       <section class="middle-grid">
-        <div class="card">
+        <div class="card chart-card">
           <h3>Прогресс по объектам</h3>
           <canvas id="progressChart"></canvas>
         </div>
-        <div class="card">
+        <div class="card chart-card">
           <h3>Нарушения по времени</h3>
           <canvas id="violationsChart"></canvas>
         </div>
@@ -69,17 +69,23 @@
             <li>Обновить статус объекта</li>
           </ul>
         </div>
-        <div class="card">
+        <div class="card calendar">
           <h3>Календарь</h3>
           <div class="weekdays">ПН ВТ СР ЧТ ПТ СБ ВС</div>
-          <div class="days">26 28 <b>29</b> 2 9</div>
+          <div class="days">
+            <span class="day past">26</span>
+            <span class="day past">28</span>
+            <span class="day today">29</span>
+            <span class="day future">2</span>
+            <span class="day future">9</span>
+          </div>
         </div>
-        <div class="card">
+        <div class="card last-objects">
           <h3>Последние объекты</h3>
           <ul>
-            <li>📌 Объект NP3</li>
-            <li>🏗️ Дизайн завода</li>
-            <li>🚢 Док-станция</li>
+            <li>Объект NP3</li>
+            <li>Дизайн завода</li>
+            <li>Док-станция</li>
           </ul>
         </div>
       </section>
