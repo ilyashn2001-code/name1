@@ -1,4 +1,3 @@
-// Прогресс круговая диаграмма
 const progressCtx = document.getElementById('progressChart').getContext('2d');
 new Chart(progressCtx, {
   type: 'doughnut',
@@ -18,15 +17,14 @@ new Chart(progressCtx, {
   }
 });
 
-// Линейный график нарушений
 const violationsCtx = document.getElementById('violationsChart').getContext('2d');
 new Chart(violationsCtx, {
   type: 'line',
   data: {
-    labels: ['ПНТ', 'ВТ', 'СР', 'ПТ', 'СБ', 'ВС'],
+    labels: ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'],
     datasets: [{
       label: 'Нарушения',
-      data: [0, 1, 2, 3, 4, 5],
+      data: [0, 1, 2, 3, 4, 5, 6],
       fill: false,
       borderColor: '#5a4fcf',
       tension: 0.3
@@ -38,5 +36,3 @@ new Chart(violationsCtx, {
     }
   }
 });
-
-Create script.js
