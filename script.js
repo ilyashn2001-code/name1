@@ -4,7 +4,7 @@ new Chart(progressCtx, {
   data: {
     labels: ['Завершено', 'Осталось'],
     datasets: [{
-      data: [0, 100],
+      data: [30, 70],  // пример: прогресс 30%
       backgroundColor: ['#5a4fcf', '#e0e0e0'],
       borderWidth: 1
     }]
@@ -24,7 +24,7 @@ new Chart(violationsCtx, {
     labels: ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'],
     datasets: [{
       label: 'Нарушения',
-      data: [0, 1, 2, 3, 4, 5, 6],
+      data: [0, 1, 2, 3, 4, 5, 6], // пример
       fill: false,
       borderColor: '#5a4fcf',
       tension: 0.3
@@ -33,6 +33,14 @@ new Chart(violationsCtx, {
   options: {
     plugins: {
       legend: { display: false }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          stepSize: 1
+        }
+      }
     }
   }
 });
