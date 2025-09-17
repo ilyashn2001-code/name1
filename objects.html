@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Объекты — LTC Control</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="sidebar">
+    <h2>LTC Control</h2>
+    <ul>
+      <li><a href="index.html">Дашборд</a></li>
+      <li class="active"><a href="objects.html">Объекты</a></li>
+      <li><a href="#">Журналы</a></li>
+      <li><a href="#">Фотографии</a></li>
+      <li><a href="#">Отчёты</a></li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <header>
+      <h1>Строительные объекты</h1>
+      <button class="add-btn">+ Добавить объект</button>
+    </header>
+
+    <!-- Фильтры -->
+    <div class="filters">
+      <input type="text" placeholder="Поиск по названию или адресу">
+      <button>Район</button>
+      <button>Тип объекта</button>
+      <button>Дата начала/окончания</button>
+      <button>Ответственный</button>
+      <button>Наличие нарушений</button>
+    </div>
+
+    <!-- Карточки объектов -->
+    <div class="object-cards">
+      <div class="object-card">
+        <h3>Строительство школы</h3>
+        <span class="status active">Активный</span>
+        <p class="progress">42%</p>
+        <p><b>Андреев Ю.</b></p>
+        <button class="more">Подробнее</button>
+      </div>
+
+      <div class="object-card">
+        <h3>Офисное здание</h3>
+        <span class="status done">Завершён</span>
+        <p class="dates">05.09.2022 – 20.12.2023</p>
+        <p><b>Васильева А.</b></p>
+        <button class="more">Подробнее</button>
+      </div>
+
+      <div class="object-card">
+        <h3>Торговый центр</h3>
+        <span class="status paused">На паузе</span>
+        <p class="dates">12.07.2023 – 25.11.2023</p>
+        <p><b>Петров Д.</b></p>
+        <button class="more">Подробнее</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
