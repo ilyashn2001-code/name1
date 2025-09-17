@@ -1,114 +1,92 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>LTC Control — Дашборд</title>
-
-  <!-- Chart.js CDN -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LTC Control</title>
+  <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <aside class="sidebar" aria-label="Навигация">
-    <div class="brand">LTC Control</div>
-    <nav>
-      <ul>
-        <li class="active">Дашборд</li>
-        <li>Объекты</li>
-        <li>Журналы</li>
-        <li>Фотографии</li>
-        <li>Отчёты</li>
-      </ul>
-    </nav>
-  </aside>
+  <div class="sidebar">
+    <h2>LTC Control</h2>
+    <ul>
+      <li>Дашборд</li>
+      <li>Объекты</li>
+      <li>Журналы</li>
+      <li>Фотографии</li>
+      <li>Отчёты</li>
+    </ul>
+  </div>
 
-  <main class="page">
-    <header class="page-header">
+  <div class="main">
+    <header>
       <h1>Дашборд</h1>
-      <div class="user-bubble" title="Профиль">U</div>
+      <div class="user">U</div>
     </header>
 
-    <!-- Топ — статистика -->
-    <section class="stats-grid" aria-label="Статистика">
-      <div class="card stat-card stat-purple">
-        <div class="stat-title">Всего объектов</div>
-        <div class="stat-number">7</div>
-        <div class="stat-change positive">▲ 5.4%</div>
+    <div class="cards">
+      <div class="card purple">
+        <div class="number">7</div>
+        <div>Всего объектов</div>
+        <small>▲ 5.4%</small>
       </div>
-
-      <div class="card stat-card stat-white">
-        <div class="stat-title stat-title-green">Активные объекты</div>
-        <div class="stat-number stat-number-green">3</div>
-        <div class="stat-change positive">▲ 2%</div>
+      <div class="card green">
+        <div class="number">3</div>
+        <div>Активные объекты</div>
+        <small>▲ 2%</small>
       </div>
-
-      <div class="card stat-card stat-orange">
-        <div class="stat-title">На рассмотрении</div>
-        <div class="stat-number">5</div>
+      <div class="card orange">
+        <div class="number">5</div>
+        <div>На рассмотрении</div>
       </div>
-
-      <div class="card stat-card stat-white">
-        <div class="stat-title stat-title-red">Нарушения</div>
-        <div class="stat-number stat-number-red">1</div>
-        <div class="stat-change negative">▼ 10%</div>
+      <div class="card red">
+        <div class="number">1</div>
+        <div>Нарушения</div>
+        <small>▼ 10%</small>
       </div>
-    </section>
+    </div>
 
-    <!-- Графики -->
-    <section class="charts-grid" aria-label="Графики">
-      <div class="card chart-card">
-        <h3 class="card-heading">Прогресс по объектам</h3>
-        <div class="chart-wrapper">
-          <canvas id="progressChart" aria-label="Диаграмма прогресса" role="img"></canvas>
-        </div>
+    <div class="charts">
+      <div class="chart-box">
+        <h3>Прогресс по объектам</h3>
+        <canvas id="progressChart"></canvas>
       </div>
-
-      <div class="card chart-card">
-        <h3 class="card-heading">Нарушения по времени</h3>
-        <div class="chart-wrapper">
-          <canvas id="violationsChart" aria-label="График нарушений" role="img"></canvas>
-        </div>
+      <div class="chart-box">
+        <h3>Нарушения по времени</h3>
+        <canvas id="lineChart"></canvas>
       </div>
-    </section>
+    </div>
 
-    <!-- Нижние карточки -->
-    <section class="bottom-grid" aria-label="Доп. информация">
+    <div class="bottom">
       <div class="card">
-        <h3 class="card-heading">Сегодняшние задачи</h3>
-        <ul class="task-list">
+        <h3>Сегодняшние задачи</h3>
+        <ul>
           <li>Проверить журнал объекта №5</li>
           <li>Утвердить отчёт по фото</li>
           <li>Обновить статус объекта</li>
         </ul>
       </div>
-
       <div class="card">
-        <h3 class="card-heading">Календарь</h3>
+        <h3>Календарь</h3>
         <div class="calendar">
-          <div class="weekdays">ПН ВТ СР ЧТ ПТ СБ ВС</div>
-          <div class="dates">
-            <span class="muted">26</span>
-            <span class="muted">28</span>
-            <span class="active">29</span>
-            <span>2</span>
-            <span>9</span>
-          </div>
+          <span>26</span>
+          <span>28</span>
+          <span class="active">29</span>
+          <span>2</span>
+          <span>9</span>
         </div>
       </div>
-
       <div class="card">
-        <h3 class="card-heading">Последние объекты</h3>
-        <ul class="recent-list">
+        <h3>Последние объекты</h3>
+        <ul>
           <li>Объект NP3</li>
           <li>Дизайн завода</li>
           <li>Док-станция</li>
         </ul>
       </div>
-    </section>
-  </main>
-
-  <script src="script.js"></script>
+    </div>
+  </div>
 </body>
 </html>
