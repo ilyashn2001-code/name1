@@ -1,3 +1,20 @@
+// Плагин для текста по центру в круговой диаграмме
+const centerText = {
+  id: 'centerText',
+  beforeDraw(chart) {
+    if (chart.config.type === 'doughnut') {
+      const {ctx, chartArea: {width, height}} = chart;
+      ctx.save();
+      ctx.font = 'bold 20px Arial';
+      ctx.fillStyle = '#333';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('30%', width / 2, height / 2);
+    }
+  }
+};
+
+// Круговая диаграмма
 const progressCtx = document.getElementById('progressChart').getContext('2d');
 new Chart(progressCtx, {
   type: 'doughnut',
@@ -10,13 +27,17 @@ new Chart(progressCtx, {
     }]
   },
   options: {
-    cutout: '70%',
+    cutout: '75%',
     plugins: {
       legend: { display: false }
-    }
-  }
+    },
+    responsive: true,
+    maintainAspectRatio: false
+  },
+  plugins: [centerText]
 });
 
+// Линейный график
 const violationsCtx = document.getElementById('violationsChart').getContext('2d');
 new Chart(violationsCtx, {
   type: 'line',
@@ -31,15 +52,15 @@ new Chart(violationsCtx, {
     }]
   },
   options: {
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: { display: false }
     },
     scales: {
       y: {
         beginAtZero: true,
-        ticks: {
-          stepSize: 1
-        }
+        ticks: { stepSize: 1 }
       }
     }
   }
