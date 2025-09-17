@@ -9,118 +9,290 @@
 </head>
 <body>
   <div class="container">
-    <!-- Сайдбар -->
+    <!-- SIDEBAR -->
     <aside class="sidebar">
-      <h2>LTC Control</h2>
+      <h2 class="logo">LTC Control</h2>
       <nav>
         <ul>
-          <li data-page="dashboard" class="active">Дашборд</li>
-          <li data-page="objects">Объекты</li>
-          <li data-page="photos">Фотографии</li>
-          <li>Журналы</li>
-          <li>Отчёты</li>
+          <li class="nav-link active" data-page="dashboard">Дашборд</li>
+          <li class="nav-link" data-page="objects">Объекты</li>
+          <li class="nav-link" data-page="photos">Фотографии</li>
+          <li class="nav-link" data-page="journals">Журналы</li>
+          <li class="nav-link" data-page="reports">Отчёты</li>
         </ul>
       </nav>
     </aside>
 
-    <!-- Основная часть -->
+    <!-- MAIN -->
     <main class="main">
-      
-      <!-- Дашборд -->
-      <section id="dashboard" class="page active">
+
+      <!-- DASHBOARD -->
+      <section id="dashboard" class="page active" aria-label="Дашборд">
         <header class="topbar">
           <h1>Дашборд</h1>
           <div class="user-icon">U</div>
         </header>
+
+        <!-- top stats -->
         <section class="stats-grid">
-          <div class="card stat purple"><div class="title">Всего объектов</div><div class="number"><b>7</b> <span class="change green">▲ 5.4%</span></div></div>
-          <div class="card stat green"><div class="title">Активные объекты</div><div class="number"><b>3</b> <span class="change green">▲ 2%</span></div></div>
-          <div class="card stat orange"><div class="title">На рассмотрении</div><div class="number"><b>5</b></div></div>
-          <div class="card stat red"><div class="title">Нарушения</div><div class="number"><b>1</b> <span class="change red">▼ 10%</span></div></div>
+          <div class="card stat-card stat-purple">
+            <div class="stat-title">Всего объектов</div>
+            <div class="stat-number">7</div>
+            <div class="stat-change positive">▲ 5.4%</div>
+          </div>
+          <div class="card stat-card stat-white">
+            <div class="stat-title green">Активные объекты</div>
+            <div class="stat-number green">3</div>
+            <div class="stat-change positive">▲ 2%</div>
+          </div>
+          <div class="card stat-card stat-orange">
+            <div class="stat-title">На рассмотрении</div>
+            <div class="stat-number">5</div>
+          </div>
+          <div class="card stat-card stat-white">
+            <div class="stat-title red">Нарушения</div>
+            <div class="stat-number red">1</div>
+            <div class="stat-change negative">▼ 10%</div>
+          </div>
         </section>
-        <section class="middle-grid">
-          <div class="card chart-card"><h3>Прогресс по объектам</h3><canvas id="progressChart"></canvas></div>
-          <div class="card chart-card"><h3>Нарушения по времени</h3><canvas id="violationsChart"></canvas></div>
+
+        <!-- charts -->
+        <section class="charts-grid">
+          <div class="card chart-card">
+            <h3 class="card-heading">Прогресс по объектам</h3>
+            <div class="chart-wrapper">
+              <canvas id="progressChart"></canvas>
+            </div>
+          </div>
+          <div class="card chart-card">
+            <h3 class="card-heading">Нарушения по времени</h3>
+            <div class="chart-wrapper">
+              <canvas id="violationsChart"></canvas>
+            </div>
+          </div>
         </section>
+
+        <!-- bottom cards -->
         <section class="bottom-grid">
-          <div class="card"><h3>Сегодняшние задачи</h3><ul><li>Проверить журнал объекта №5</li><li>Утвердить отчёт по фото</li><li>Обновить статус объекта</li></ul></div>
-          <div class="card calendar"><h3>Календарь</h3><div class="weekdays">ПН ВТ СР ЧТ ПТ СБ ВС</div><div class="days"><span class="day past">26</span><span class="day past">28</span><span class="day today">29</span><span class="day future">2</span><span class="day future">9</span></div></div>
-          <div class="card last-objects"><h3>Последние объекты</h3><ul><li>Объект NP3</li><li>Дизайн завода</li><li>Док-станция</li></ul></div>
+          <div class="card">
+            <h3 class="card-heading">Сегодняшние задачи</h3>
+            <ul class="list">
+              <li>Проверить журнал объекта №5</li>
+              <li>Утвердить отчёт по фото</li>
+              <li>Обновить статус объекта</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 class="card-heading">Календарь</h3>
+            <div class="calendar">
+              <div class="weekdays">ПН ВТ СР ЧТ ПТ СБ ВС</div>
+              <div class="dates">
+                <span class="muted">26</span>
+                <span class="muted">28</span>
+                <span class="active">29</span>
+                <span>2</span>
+                <span>9</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 class="card-heading">Последние объекты</h3>
+            <ul class="list">
+              <li>Объект NP3</li>
+              <li>Дизайн завода</li>
+              <li>Док-станция</li>
+            </ul>
+          </div>
         </section>
       </section>
 
-      <!-- Объекты -->
-      <section id="objects" class="page">
+      <!-- OBJECTS -->
+      <section id="objects" class="page" aria-label="Объекты">
         <header class="topbar">
           <h1>Строительные объекты</h1>
           <button class="btn-primary">+ Добавить объект</button>
         </header>
+
+        <!-- filters row 1 -->
         <div class="filters-row">
-          <input type="text" placeholder="Поиск по названию или адресу">
-          <button>Район</button>
-          <button>Тип объекта</button>
-          <button>Дата начала/окончания</button>
-          <button>Ответственный</button>
-          <button>Наличие нарушений</button>
+          <div class="search-wrap">
+            <input type="text" placeholder="Поиск по названию или адресу" />
+            <span class="search-icon">🔍</span>
+          </div>
+          <button class="filter-btn">Район <span class="chev">▾</span></button>
+          <button class="filter-btn">Тип объекта <span class="chev">▾</span></button>
+          <button class="filter-btn">Дата начала/окончания <span class="chev">▾</span></button>
+          <button class="filter-btn">Ответственный <span class="chev">▾</span></button>
+          <button class="filter-btn">Наличие нарушений <span class="chev">▾</span></button>
         </div>
-        <div class="objects-grid">
-          <div class="card object-card"><h3>Строительство школы</h3><span class="status active">Активный</span><p><b>42%</b></p><p>Андреев Ю.</p><button>Подробнее</button></div>
-          <div class="card object-card"><h3>Офисное здание</h3><span class="status done">Завершён</span><p>05.09.2022 – 20.12.2023</p><p>Васильева А.</p><button>Подробнее</button></div>
-          <div class="card object-card"><h3>Торговый центр</h3><span class="status pause">На паузе</span><p>12.07.2023 – 25.11.2023</p><p>Петров Д.</p><button>Подробнее</button></div>
+
+        <!-- filters row 2 (chips) -->
+        <div class="chips-row">
+          <button class="chip">Детский сад</button>
+          <button class="chip">Магазин</button>
+          <button class="chip">Жилое помещение</button>
+          <button class="chip">Парк</button>
+          <button class="chip">Метро</button>
+          <button class="chip">Салон красоты</button>
+        </div>
+
+        <!-- object cards -->
+        <div class="object-grid">
+          <article class="object-card card">
+            <h3>Строительство школы</h3>
+            <span class="badge active">Активный</span>
+            <div class="progress"><div class="bar" style="width:42%"></div></div>
+            <div class="meta"><b>42%</b> · Андреев Ю.</div>
+            <button class="btn-secondary">Подробнее</button>
+          </article>
+
+          <article class="object-card card">
+            <h3>Офисное здание</h3>
+            <span class="badge done">Завершён</span>
+            <div class="meta">05.09.2022 — 20.12.2023 · Васильева А.</div>
+            <button class="btn-secondary">Подробнее</button>
+          </article>
+
+          <article class="object-card card">
+            <h3>Торговый центр</h3>
+            <span class="badge paused">На паузе</span>
+            <div class="progress"><div class="bar yellow" style="width:60%"></div></div>
+            <div class="meta">12.07.2023 — 25.11.2023 · Петров Д.</div>
+            <button class="btn-secondary">Подробнее</button>
+          </article>
         </div>
       </section>
 
-      <!-- Фотографии -->
-      <section id="photos" class="page">
+      <!-- PHOTOS -->
+      <section id="photos" class="page" aria-label="Фотографии">
         <header class="topbar">
           <h1>Фотографии</h1>
           <button id="uploadBtn" class="btn-primary">Загрузить</button>
         </header>
-        <div class="filters-row">
-          <button class="active">Все</button>
-          <button>Ожидают проверки</button>
-          <button>Проверенные</button>
-          <button>Проблемные</button>
-          <button>Статус</button>
-          <input type="text" placeholder="Поиск по описанию или объекту">
-          <button>За дату</button>
-          <button>Объект</button>
-          <button>Источник</button>
-          <button>Статус</button>
+
+        <!-- tabs + filters -->
+        <div class="tabs-row">
+          <button class="tab active">Все</button>
+          <button class="tab">Ожидают проверки</button>
+          <button class="tab">Проверенные</button>
+          <button class="tab">Проблемные</button>
+          <button class="tab">Статус <span class="chev">▾</span></button>
         </div>
+
+        <div class="filters-row">
+          <div class="search-wrap">
+            <input type="text" placeholder="Поиск по описанию или объекту" />
+            <span class="search-icon">🔍</span>
+          </div>
+          <button class="filter-btn">За дату <span class="chev">▾</span></button>
+          <button class="filter-btn">Объект <span class="chev">▾</span></button>
+          <button class="filter-btn">Источник <span class="chev">▾</span></button>
+          <button class="filter-btn">Статус <span class="chev">▾</span></button>
+        </div>
+
+        <!-- photo cards -->
         <div class="photos-grid">
-          <div class="photo-card"><img src="https://picsum.photos/200/150" alt="Жилой дом"><div class="caption"><h3>Жилой дом</h3><span class="status done">Проверено</span></div></div>
-          <div class="photo-card"><img src="https://picsum.photos/200/151" alt="Торговый центр"><div class="caption"><h3>Торговый центр</h3><span class="status warning">Манчально</span></div></div>
-          <div class="photo-card"><img src="https://picsum.photos/200/152" alt="Офисное здание"><div class="caption"><h3>Офисное здание</h3><span class="status done">Проверено</span></div></div>
+          <article class="photo-card card">
+            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=1200&auto=format&fit=crop" alt="Жилой дом" />
+            <div class="photo-caption">
+              <h3>Жилой дом</h3>
+              <span class="badge done">Проверено</span>
+            </div>
+          </article>
+
+          <article class="photo-card card">
+            <img src="https://images.unsplash.com/photo-1536376072261-38c75010e6c9?q=80&w=1200&auto=format&fit=crop" alt="Торговый центр" />
+            <div class="photo-caption">
+              <h3>Торговый центр</h3>
+              <span class="badge warn">Манчально</span>
+            </div>
+          </article>
+
+          <article class="photo-card card">
+            <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop" alt="Офисное здание" />
+            <div class="photo-caption">
+              <h3>Офисное здание</h3>
+              <span class="badge done">Проверено</span>
+            </div>
+          </article>
         </div>
       </section>
+
+      <!-- STUBS -->
+      <section id="journals" class="page"><h1>Журналы</h1></section>
+      <section id="reports"  class="page"><h1>Отчёты</h1></section>
+
     </main>
   </div>
 
-  <!-- Модалка загрузки -->
+  <!-- MODAL: upload -->
   <div id="uploadModal" class="modal">
     <div class="modal-content">
       <h2>Загрузить фотографию</h2>
-      <div class="upload-box">
+      <div class="alert hidden" id="netAlert">Нет соединения с сервером</div>
+      <div class="dropzone" id="dropzone">
         <p>Перетащите файлы сюда или нажмите для выбора</p>
-        <input type="file" id="fileInput" multiple>
+        <small>Поддерживаемые форматы: JPEG, PNG, WebP · Макс. размер: 10 MB · Макс. кол-во: 10</small>
+        <input type="file" id="fileInput" multiple />
       </div>
-      <button id="nextBtn" class="btn-primary">Далее</button>
-      <button class="btn-secondary closeBtn">Отмена</button>
+      <div class="modal-actions">
+        <button class="btn-secondary closeBtn">Отмена</button>
+        <button id="nextBtn" class="btn-primary">Далее</button>
+      </div>
     </div>
   </div>
 
-  <!-- Модалка добавления -->
+  <!-- MODAL: add photo -->
   <div id="addPhotoModal" class="modal">
     <div class="modal-content">
       <h2>Добавить фотографию</h2>
-      <label>Выберите файл<input type="file"></label>
-      <label>Описание<textarea></textarea></label>
-      <label>Журнал<select><option>Журнал 1</option></select></label>
-      <label>Долгота<input type="text"></label>
-      <label>Широта<input type="text"></label>
-      <button class="btn-primary">Добавить</button>
-      <button class="btn-secondary closeBtn">Отмена</button>
+      <div class="alert hidden" id="netAlert2">Нет соединения с сервером</div>
+
+      <label class="field">
+        <span>Выберите файл</span>
+        <input type="file" />
+      </label>
+
+      <label class="field">
+        <span>Описание</span>
+        <textarea rows="3" placeholder="Краткое описание…"></textarea>
+      </label>
+
+      <div class="cols2">
+        <label class="field">
+          <span>Журнал</span>
+          <select>
+            <option>Рабочий журнал</option>
+            <option>Фото-отчёт</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Статус</span>
+          <select>
+            <option>Ожидает проверки</option>
+            <option>Проверено</option>
+            <option>Проблема</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="cols2">
+        <label class="field">
+          <span>Долгота</span>
+          <input type="text" placeholder="55.751244" />
+        </label>
+        <label class="field">
+          <span>Широта</span>
+          <input type="text" placeholder="37.618423" />
+        </label>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-secondary closeBtn">Отмена</button>
+        <button class="btn-primary">Добавить</button>
+      </div>
     </div>
   </div>
 
