@@ -3,94 +3,127 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LTC Dashboard</title>
+  <title>LTC Control</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="container">
+    <!-- Сайдбар -->
     <aside class="sidebar">
       <h2>LTC Control</h2>
       <nav>
         <ul>
-          <li class="active">Дашборд</li>
-         <li><a href="objects.html">Объекты</a></li>
+          <li data-page="dashboard" class="active">Дашборд</li>
+          <li data-page="objects">Объекты</li>
+          <li data-page="photos">Фотографии</li>
           <li>Журналы</li>
-          <li>Фотографии</li>
           <li>Отчёты</li>
         </ul>
       </nav>
     </aside>
 
+    <!-- Основная часть -->
     <main class="main">
-      <header class="topbar">
-        <h1>Дашборд</h1>
-        <div class="filters">
+      
+      <!-- Дашборд -->
+      <section id="dashboard" class="page active">
+        <header class="topbar">
+          <h1>Дашборд</h1>
           <div class="user-icon">U</div>
-        </div>
-      </header>
+        </header>
+        <section class="stats-grid">
+          <div class="card stat purple"><div class="title">Всего объектов</div><div class="number"><b>7</b> <span class="change green">▲ 5.4%</span></div></div>
+          <div class="card stat green"><div class="title">Активные объекты</div><div class="number"><b>3</b> <span class="change green">▲ 2%</span></div></div>
+          <div class="card stat orange"><div class="title">На рассмотрении</div><div class="number"><b>5</b></div></div>
+          <div class="card stat red"><div class="title">Нарушения</div><div class="number"><b>1</b> <span class="change red">▼ 10%</span></div></div>
+        </section>
+        <section class="middle-grid">
+          <div class="card chart-card"><h3>Прогресс по объектам</h3><canvas id="progressChart"></canvas></div>
+          <div class="card chart-card"><h3>Нарушения по времени</h3><canvas id="violationsChart"></canvas></div>
+        </section>
+        <section class="bottom-grid">
+          <div class="card"><h3>Сегодняшние задачи</h3><ul><li>Проверить журнал объекта №5</li><li>Утвердить отчёт по фото</li><li>Обновить статус объекта</li></ul></div>
+          <div class="card calendar"><h3>Календарь</h3><div class="weekdays">ПН ВТ СР ЧТ ПТ СБ ВС</div><div class="days"><span class="day past">26</span><span class="day past">28</span><span class="day today">29</span><span class="day future">2</span><span class="day future">9</span></div></div>
+          <div class="card last-objects"><h3>Последние объекты</h3><ul><li>Объект NP3</li><li>Дизайн завода</li><li>Док-станция</li></ul></div>
+        </section>
+      </section>
 
-      <section class="stats-grid">
-        <div class="card stat purple">
-          <div class="title">Всего объектов</div>
-          <div class="number">7 <span class="change green">▲ 5.4%</span></div>
+      <!-- Объекты -->
+      <section id="objects" class="page">
+        <header class="topbar">
+          <h1>Строительные объекты</h1>
+          <button class="btn-primary">+ Добавить объект</button>
+        </header>
+        <div class="filters-row">
+          <input type="text" placeholder="Поиск по названию или адресу">
+          <button>Район</button>
+          <button>Тип объекта</button>
+          <button>Дата начала/окончания</button>
+          <button>Ответственный</button>
+          <button>Наличие нарушений</button>
         </div>
-        <div class="card stat green">
-          <div class="title">Активные объекты</div>
-          <div class="number">3 <span class="change green">▲ 2%</span></div>
-        </div>
-        <div class="card stat orange">
-          <div class="title">На рассмотрении</div>
-          <div class="number">5</div>
-        </div>
-        <div class="card stat red">
-          <div class="title">Нарушения</div>
-          <div class="number">1 <span class="change red">▼ 10%</span></div>
+        <div class="objects-grid">
+          <div class="card object-card"><h3>Строительство школы</h3><span class="status active">Активный</span><p><b>42%</b></p><p>Андреев Ю.</p><button>Подробнее</button></div>
+          <div class="card object-card"><h3>Офисное здание</h3><span class="status done">Завершён</span><p>05.09.2022 – 20.12.2023</p><p>Васильева А.</p><button>Подробнее</button></div>
+          <div class="card object-card"><h3>Торговый центр</h3><span class="status pause">На паузе</span><p>12.07.2023 – 25.11.2023</p><p>Петров Д.</p><button>Подробнее</button></div>
         </div>
       </section>
 
-      <section class="middle-grid">
-        <div class="card chart-card">
-          <h3>Прогресс по объектам</h3>
-          <canvas id="progressChart"></canvas>
+      <!-- Фотографии -->
+      <section id="photos" class="page">
+        <header class="topbar">
+          <h1>Фотографии</h1>
+          <button id="uploadBtn" class="btn-primary">Загрузить</button>
+        </header>
+        <div class="filters-row">
+          <button class="active">Все</button>
+          <button>Ожидают проверки</button>
+          <button>Проверенные</button>
+          <button>Проблемные</button>
+          <button>Статус</button>
+          <input type="text" placeholder="Поиск по описанию или объекту">
+          <button>За дату</button>
+          <button>Объект</button>
+          <button>Источник</button>
+          <button>Статус</button>
         </div>
-        <div class="card chart-card">
-          <h3>Нарушения по времени</h3>
-          <canvas id="violationsChart"></canvas>
-        </div>
-      </section>
-
-      <section class="bottom-grid">
-        <div class="card">
-          <h3>Сегодняшние задачи</h3>
-          <ul>
-            <li>Проверить журнал объекта №5</li>
-            <li>Утвердить отчёт по фото</li>
-            <li>Обновить статус объекта</li>
-          </ul>
-        </div>
-        <div class="card calendar">
-          <h3>Календарь</h3>
-          <div class="weekdays">ПН ВТ СР ЧТ ПТ СБ ВС</div>
-          <div class="days">
-            <span class="day past">26</span>
-            <span class="day past">28</span>
-            <span class="day today">29</span>
-            <span class="day future">2</span>
-            <span class="day future">9</span>
-          </div>
-        </div>
-        <div class="card last-objects">
-          <h3>Последние объекты</h3>
-          <ul>
-            <li>Объект NP3</li>
-            <li>Дизайн завода</li>
-            <li>Док-станция</li>
-          </ul>
+        <div class="photos-grid">
+          <div class="photo-card"><img src="https://picsum.photos/200/150" alt="Жилой дом"><div class="caption"><h3>Жилой дом</h3><span class="status done">Проверено</span></div></div>
+          <div class="photo-card"><img src="https://picsum.photos/200/151" alt="Торговый центр"><div class="caption"><h3>Торговый центр</h3><span class="status warning">Манчально</span></div></div>
+          <div class="photo-card"><img src="https://picsum.photos/200/152" alt="Офисное здание"><div class="caption"><h3>Офисное здание</h3><span class="status done">Проверено</span></div></div>
         </div>
       </section>
     </main>
   </div>
+
+  <!-- Модалка загрузки -->
+  <div id="uploadModal" class="modal">
+    <div class="modal-content">
+      <h2>Загрузить фотографию</h2>
+      <div class="upload-box">
+        <p>Перетащите файлы сюда или нажмите для выбора</p>
+        <input type="file" id="fileInput" multiple>
+      </div>
+      <button id="nextBtn" class="btn-primary">Далее</button>
+      <button class="btn-secondary closeBtn">Отмена</button>
+    </div>
+  </div>
+
+  <!-- Модалка добавления -->
+  <div id="addPhotoModal" class="modal">
+    <div class="modal-content">
+      <h2>Добавить фотографию</h2>
+      <label>Выберите файл<input type="file"></label>
+      <label>Описание<textarea></textarea></label>
+      <label>Журнал<select><option>Журнал 1</option></select></label>
+      <label>Долгота<input type="text"></label>
+      <label>Широта<input type="text"></label>
+      <button class="btn-primary">Добавить</button>
+      <button class="btn-secondary closeBtn">Отмена</button>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
