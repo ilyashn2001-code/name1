@@ -113,7 +113,8 @@ body {
 }
 
 .card.stat .number {
-  font-size: 28px;
+  font-size: 36px;
+  font-weight: bold;
   margin-top: auto;
 }
 
@@ -144,12 +145,16 @@ body {
 .chart-card {
   display: flex;
   flex-direction: column;
-  padding: 20px;
   align-items: center;
-  justify-content: space-around;
-  height: 320px;
+  justify-content: center; /* теперь графики по центру */
+  height: 300px;
+  padding: 20px;
 }
 
+.chart-card canvas {
+  max-width: 90%;
+  max-height: 220px; /* графики не будут "вылазить" */
+}
 /* ЗАДАЧИ, ПОСЛЕДНИЕ ОБЪЕКТЫ */
 .card ul {
   list-style: disc;
