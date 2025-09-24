@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <title>Дашборд</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="dashboard.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="dashboard.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Аналитика по объектам</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
   <div class="app-container">
@@ -24,30 +24,10 @@
     <main class="main">
       <header class="header">
         <h1>Аналитика по объектам</h1>
-        <button id="themeToggle" class="theme-toggle">🌗</button>
+        <button id="themeToggle" class="theme-toggle" title="Переключить тему">🌗</button>
       </header>
-
-      <div class="dashboard-cards">
-        <div class="card total">Всего объектов <span id="totalCount">0</span></div>
-        <div class="card violations">Нарушения <span id="totalViolations">0</span></div>
-        <div class="card photos">Фото <span id="totalPhotos">0</span></div>
-        <div class="card districts">Округов <span id="totalDistricts">0</span></div>
-      </div>
-
-      <div class="charts">
-        <div class="chart-box">
-          <h3>Распределение по статусу</h3>
-          <canvas id="statusChart"></canvas>
-        </div>
-
-        <div class="chart-box">
-          <h3>Объекты по округам</h3>
-          <canvas id="districtChart"></canvas>
-        </div>
-      </div>
+      <p>Здесь будет аналитика по строительным объектам...</p>
     </main>
   </div>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </body>
 </html>
