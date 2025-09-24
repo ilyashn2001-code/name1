@@ -2,83 +2,73 @@
 <html lang="ru" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Дашборд объектов</title>
-  <!-- Highcharts + Gantt module -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Аналитика по объектам</title>
+
+  <!-- Шрифт -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Иконки -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Стили -->
+  <link rel="stylesheet" href="dashboard.css" />
+
+  <!-- Графики -->
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/gantt.js"></script>
-  <!-- Leaflet CSS/JS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-sA+4/Evc5UV0gC/AEb1lJ6V91L4KU3lD5Rr+0u+QaAk="
-    crossorigin=""
-  />
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-o9N1j7kEbMRugk+Ai1IZi+z0LMMLTKTetQp0v+P0Ryk="
-    crossorigin=""
-  ></script>
-  <link rel="stylesheet" href="dashboard.css" />
+
+  <!-- Leaflet карта -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- JS -->
+  <script defer src="dashboard.js"></script>
 </head>
 <body>
-  <div class="sidebar">
-    <h2>Меню</h2>
-    <ul>
-      <li class="active">Дашборд</li>
-      <li>Объекты</li>
-      <li>Фотографии</li>
-      <li>Журналы</li>
-      <li>Отчёты</li>
-    </ul>
-    <button id="theme-toggle">Сменить тему</button>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Intellectual Journal</h2>
+      <ul>
+        <li class="active"><i class="fas fa-tachometer-alt"></i> Дашборд</li>
+        <li><i class="fas fa-building"></i> Объекты</li>
+        <li><i class="fas fa-camera"></i> Фотографии</li>
+        <li><i class="fas fa-book"></i> Журналы</li>
+        <li><i class="fas fa-chart-line"></i> Отчёты</li>
+      </ul>
+    </aside>
+
+    <main class="main">
+      <!-- Header -->
+      <header class="header">
+        <h1>Аналитика по объектам</h1>
+        <button id="themeToggle" class="theme-toggle" title="Переключить тему">🌗</button>
+      </header>
+
+      <!-- Фильтры -->
+      <div class="filters">
+        <input type="text" id="searchInput" placeholder="Поиск по названию или адресу" />
+        <select id="districtFilter" class="filter-okrug">
+          <option value="">Округ</option>
+          <option value="САО">САО</option>
+          <option value="СВАО">СВАО</option>
+        </select>
+        <select id="typeFilter" class="filter-type">
+          <option value="">Тип объекта</option>
+          <option value="Дворовая территория">Дворовая территория</option>
+        </select>
+        <input type="text" id="dateStartFilter" placeholder="Начало периода" class="filter-date-start" />
+        <input type="text" id="dateEndFilter" placeholder="Конец периода" class="filter-date-end" />
+        <input type="text" id="fioFilter" placeholder="Ответственный" class="filter-fio" />
+        <input type="text" id="violationFilter" placeholder="Нарушения" class="filter-violation" />
+      </div>
+
+      <!-- Далее будут секции: графики, карта, рейтинги и т.д. -->
+      <section class="dashboard-body">
+        <!-- Здесь будет твой контент -->
+      </section>
+    </main>
   </div>
-  <main>
-    <div class="filters">
-      <select id="filter-year"><option>2024</option><option>2025</option></select>
-      <select id="filter-district"><option>СВАО</option><option>САО</option></select>
-      <select id="filter-status"><option>Все</option><option>Завершён</option><option>Проблемные</option></select>
-      <!-- Добавь другие фильтры как надо -->
-      <button id="apply-filters">Применить</button>
-    </div>
-
-    <!-- Блок 1: Общая сводка -->
-    <section class="summary-block">
-      <div id="pie-status" class="chart pie-chart"></div>
-      <div class="kpi-cards">
-        <div class="kpi-card">
-          <h3>Объектов всего</h3>
-          <p id="kpi-total">0</p>
-        </div>
-        <div class="kpi-card">
-          <h3>% Выполнения</h3>
-          <p id="kpi-percent">0%</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Блок 2 + 3: Гант + Карта -->
-    <section class="middle-blocks">
-      <div id="gantt-chart" class="chart gantt-chart"></div>
-      <div id="map" class="map-container"></div>
-    </section>
-
-    <!-- Блок 6 + 7: Динамика + Рейтинг -->
-    <section class="bottom-blocks">
-      <div id="line-chart" class="chart line-chart"></div>
-      <div class="ranking-blocks">
-        <div class="ranking-card" id="ranking-objects">
-          <h3>Топ‑5 объектов с нарушениями</h3>
-          <ul></ul>
-        </div>
-        <div class="ranking-card" id="ranking-contractors">
-          <h3>Топ‑5 подрядчиков / заказчиков</h3>
-          <ul></ul>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script src="dashboard.js"></script>
 </body>
 </html>
