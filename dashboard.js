@@ -1,79 +1,69 @@
-// Тема
-document.getElementById('themeToggle').addEventListener('click', () => {
-  const current = document.documentElement.getAttribute('data-theme');
-  const next = current === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', next);
-  localStorage.setItem('theme', next);
-});
-document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'light');
+document.addEventListener('DOMContentLoaded', () => {
+  const objects = [ // 🧠 Можно импортировать из другого файла
+    { title: 'Путевой пр. 38', status: 'Завершён', percent: 100, district: 'СВАО', violations: '2, проверок: 1', photos: 12 },
+    { title: 'Флотская ул. 54', status: 'Завершён', percent: 100, district: 'САО', violations: '1, проверок: 1', photos: 8 },
+    { title: 'Каргопольская ул. 18', status: 'Завершён', percent: 100, district: 'СВАО', violations: '3, проверок: 2', photos: 10 },
+    { title: 'Бестужевых ул. 27А', status: 'Завершён', percent: 100, district: 'СВАО', violations: '0, проверок: 1', photos: 6 },
+    { title: 'Челобитьевское ш. 14', status: 'Завершён', percent: 100, district: 'СВАО', violations: '2, проверок: 2', photos: 11 },
+    { title: 'Мира просп. 194', status: 'Завершён', percent: 100, district: 'СВАО', violations: '0, проверок: 1', photos: 9 }
+  ];
 
-// === Прогресс по округам ===
-new Chart(document.getElementById('okrugChart'), {
-  type: 'bar',
-  data: {
-    labels: ['САО', 'СВАО', 'ЦАО'],
-    datasets: [{
-      label: 'Завершено объектов',
-      data: [4, 6, 2],
-      backgroundColor: '#1e88e5',
-      borderRadius: 6
-    }]
-  },
-  options: {
-    plugins: {
-      legend: { display: false }
+  // ==== Заполняем карточки ====
+  document.getElementById('totalCount').textContent = objects.length;
+  document.getElementById('totalPhotos').textContent = objects.reduce((sum, o) => sum + (o.photos || 0), 0);
+  document.getElementById('totalViolations').textContent = objects.reduce((sum, o) => {
+    const n = parseInt(o.violations);
+    return sum + (isNaN(n) ? 0 : n);
+  }, 0);
+  const districts = [...new Set(objects.map(o => o.district))];
+  document.getElementById('totalDistricts').textContent = districts.length;
+
+  // ==== Статусы ====
+  const statusMap = {};
+  objects.forEach(o => {
+    statusMap[o.status] = (statusMap[o.status] || 0) + 1;
+  });
+
+  new Chart(document.getElementById('statusChart'), {
+    type: 'doughnut',
+    data: {
+      labels: Object.keys(statusMap),
+      datasets: [{
+        label: 'Статусы',
+        data: Object.values(statusMap),
+        backgroundColor: ['#4caf50', '#fbc02d', '#f44336']
+      }]
     },
-    scales: {
-      y: {
-        beginAtZero: true,
-        ticks: { stepSize: 1 }
-      }
+    options: {
+      plugins: { legend: { position: 'bottom' } }
     }
-  }
-});
+  });
 
-// === Распределение по статусам ===
-new Chart(document.getElementById('statusChart'), {
-  type: 'doughnut',
-  data: {
-    labels: ['Завершено', 'В работе', 'Проблемные'],
-    datasets: [{
-      data: [12, 8, 4],
-      backgroundColor: ['#43a047', '#fbc02d', '#e53935']
-    }]
-  },
-  options: {
-    cutout: '60%',
-    plugins: {
-      legend: {
-        position: 'bottom'
-      }
-    }
-  }
-});
+  // ==== Округа ====
+  const districtMap = {};
+  objects.forEach(o => {
+    districtMap[o.district] = (districtMap[o.district] || 0) + 1;
+  });
 
-// === Нарушения по неделям ===
-new Chart(document.getElementById('violationsChart'), {
-  type: 'line',
-  data: {
-    labels: ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'],
-    datasets: [{
-      label: 'Нарушения',
-      data: [1, 3, 2, 4, 2, 1, 0],
-      borderColor: '#e53935',
-      fill: false,
-      tension: 0.4
-    }]
-  },
-  options: {
-    plugins: {
-      legend: { display: false }
+  new Chart(document.getElementById('districtChart'), {
+    type: 'bar',
+    data: {
+      labels: Object.keys(districtMap),
+      datasets: [{
+        label: 'Количество объектов',
+        data: Object.values(districtMap),
+        backgroundColor: '#1e88e5'
+      }]
     },
-    scales: {
-      y: {
-        beginAtZero: true,
-        ticks: { stepSize: 1 }
+    options: {
+      scales: {
+        y: { beginAtZero: true }
       }
     }
-  }
+  });
+
+  // ==== Тема ====
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  });
 });
