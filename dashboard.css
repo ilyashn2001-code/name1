@@ -335,3 +335,11 @@ body {
   border-radius: 4px;
   border: 1px solid #ccc;
 }
+/* Увеличенные селекты */
+#filter-area,
+#filter-customer,
+#filter-contractor,
+#filter-status-object,
+#filter-year {
+  min-width: 180px; /* или больше — подбери по макету */
+}
