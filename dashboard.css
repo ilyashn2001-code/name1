@@ -343,3 +343,27 @@ body {
 #filter-year {
   min-width: 180px; /* или больше — подбери по макету */
 }
+.filters select {
+  margin-right: 8px;
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
+#districtFilter,
+#typeFilter,
+#filter-status-check {
+  width: 120px;
+}
+
+#filter-area,
+#filter-customer,
+#filter-contractor,
+#filter-status-object,
+#filter-year {
+  width: 160px;
+}
+
+#dateStartFilter,
+#dateEndFilter {
+  width: 140px;
+}
