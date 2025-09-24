@@ -310,3 +310,16 @@ body {
   font-weight: 600;
   color: #111827;
 }
+.triple-charts {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.chart-card {
+  flex: 1;
+  background: var(--bg-secondary, #f9f9f9);
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.05);
+}
