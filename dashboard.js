@@ -24,19 +24,50 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // Функции отрисовки
 
-function renderPieStatus(data) {
-  const counts = data.reduce((acc, obj) => {
-    acc[obj.status] = (acc[obj.status] || 0) + 1;
+function renderTriplePieCharts(data) {
+  // Статусы объектов
+  const statusObjCounts = data.reduce((acc, o) => {
+    acc[o.statusObject] = (acc[o.statusObject] || 0) + 1;
     return acc;
   }, {});
-  const series = Object.entries(counts).map(([status, cnt]) => ({
-    name: status,
-    y: cnt
-  }));
-  Highcharts.chart('status-pie', {
+  Highcharts.chart('pie-status-object', {
     chart: { type: 'pie', backgroundColor: 'transparent' },
-    title: { text: 'Статусы объектов' },
-    series: [{ name: 'Количество', colorByPoint: true, data: series }]
+    title: { text: '' },
+    series: [{
+      name: 'Объекты',
+      colorByPoint: true,
+      data: Object.entries(statusObjCounts).map(([name, y]) => ({ name, y }))
+    }]
+  });
+
+  // Статусы проверок
+  const statusCheckCounts = data.reduce((acc, o) => {
+    acc[o.statusCheck] = (acc[o.statusCheck] || 0) + 1;
+    return acc;
+  }, {});
+  Highcharts.chart('pie-status-check', {
+    chart: { type: 'pie', backgroundColor: 'transparent' },
+    title: { text: '' },
+    series: [{
+      name: 'Проверки',
+      colorByPoint: true,
+      data: Object.entries(statusCheckCounts).map(([name, y]) => ({ name, y }))
+    }]
+  });
+
+  // Округа
+  const districtCounts = data.reduce((acc, o) => {
+    acc[o.district] = (acc[o.district] || 0) + 1;
+    return acc;
+  }, {});
+  Highcharts.chart('pie-by-district', {
+    chart: { type: 'pie', backgroundColor: 'transparent' },
+    title: { text: '' },
+    series: [{
+      name: 'Округа',
+      colorByPoint: true,
+      data: Object.entries(districtCounts).map(([name, y]) => ({ name, y }))
+    }]
   });
 }
 
@@ -88,24 +119,22 @@ function renderMap(data) {
   }).addTo(map);
 
   data.forEach(o => {
-const color = o.statusObject === 'Завершён' ? 'green' : 'orange';
-
+    const color = o.statusObject === 'Завершён' ? 'green' : 'orange';
     const marker = L.circleMarker([o.lat, o.lng], {
       radius: 8,
       color: color,
       fillOpacity: 0.8
     }).addTo(map);
     marker.on('click', () => {
-  const popupHtml = `
-  <strong>${o.title}</strong><br/>
-  Статус объекта: ${o.statusObject}<br/>
-  Статус проверки: ${o.statusCheck}<br/>
-  Готовность: ${o.percent}%<br/>
-  Нарушений: ${o.violations}<br/>
-  Проверок: ${o.checks}<br/>
-  Ответственный: ${o.fio}
-`;
-
+      const popupHtml = `
+        <strong>${o.title}</strong><br/>
+        Статус объекта: ${o.statusObject}<br/>
+        Статус проверки: ${o.statusCheck}<br/>
+        Готовность: ${o.percent}%<br/>
+        Нарушений: ${o.violations}<br/>
+        Проверок: ${o.checks}<br/>
+        Ответственный: ${o.fio}
+      `;
       marker.bindPopup(popupHtml).openPopup();
     });
   });
@@ -114,7 +143,7 @@ const color = o.statusObject === 'Завершён' ? 'green' : 'orange';
 function renderLineChart(data) {
   const months = [];
   const counts = [];
-  const year = 2024; // ← жёстко задаём 2024 год
+  const year = 2024;
 
   for (let m = 0; m < 12; m++) {
     const dt = Date.UTC(year, m, 1);
@@ -134,7 +163,6 @@ function renderLineChart(data) {
     series: [{ name: 'Активные объекты', data: counts.map((c, i) => [months[i], c]) }]
   });
 }
-
 
 function renderRanking(data) {
   const sorted = [...data].sort((a, b) => (b.violations || 0) - (a.violations || 0));
@@ -162,12 +190,14 @@ function renderRanking(data) {
 }
 
 function initDashboard() {
-  renderPieStatus(objectsData);
+  renderTriplePieCharts(objectsData);
   renderKpi(objectsData);
   renderGantt(objectsData);
   renderMap(objectsData);
   renderLineChart(objectsData);
   renderRanking(objectsData);
 }
+
+document.addEventListener('DOMContentLoaded', initDashboard);
 
 document.addEventListener('DOMContentLoaded', initDashboard);
