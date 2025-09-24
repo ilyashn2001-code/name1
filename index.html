@@ -48,20 +48,23 @@
 
       <!-- Фильтры -->
       <div class="filters">
-        <input type="text" id="searchInput" placeholder="Поиск по названию или адресу" />
         <select id="districtFilter" class="filter-okrug">
           <option value="">Округ</option>
           <option value="САО">САО</option>
           <option value="СВАО">СВАО</option>
         </select>
+         <select id="filter-area"><option>Район</option></select>
         <select id="typeFilter" class="filter-type">
           <option value="">Тип объекта</option>
           <option value="Дворовая территория">Дворовая территория</option>
         </select>
+        <select id="filter-customer"><option>Заказчик</option></select>
+  <select id="filter-contractor"><option>Подрядчик</option></select>
+  <select id="filter-status-object"><option>Статус объекта</option></select>
+  <select id="filter-status-check"><option>Статус проверки</option></select>
+  <select id="filter-year"><option>Год проведения</option></select>
         <input type="text" id="dateStartFilter" placeholder="Начало периода" class="filter-date-start" />
         <input type="text" id="dateEndFilter" placeholder="Конец периода" class="filter-date-end" />
-        <input type="text" id="fioFilter" placeholder="Ответственный" class="filter-fio" />
-        <input type="text" id="violationFilter" placeholder="Нарушения" class="filter-violation" />
       </div>
 
       <!-- Далее будут секции: графики, карта, рейтинги и т.д. -->
