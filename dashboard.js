@@ -1,11 +1,11 @@
 // Пример данных (ты их можешь подгрузить с API)
 const objectsData = [
-  { title: 'Дворовая территория по адресу: Путевой пр. 38', status: 'Завершён', percent: 100, fio: 'Андреев Ю.А.', dates: '15.04.2024-20.08.2024', district: 'СВАО', violations: 2, checks: 1, documents: '0%', photos: 12, lat: 55.8, lng: 37.6 },
-  { title: 'Дворовая территория по адресу: Флотская ул. 54, 58 к.1', status: 'Завершён', percent: 100, fio: 'Семенов И.П.', dates: '15.04.2024-15.08.2024', district: 'САО', violations: 1, checks: 1, documents: '0%', photos: 8, lat: 55.83, lng: 37.5 },
-  { title: 'Дворовая территория по адресу: Каргопольская ул. 18', status: 'Завершён', percent: 100, fio: 'Петров Д.С.', dates: '15.04.2024-28.08.2024', district: 'СВАО', violations: 3, checks: 2, documents: '0%', photos: 10, lat: 55.85, lng: 37.7 },
-  { title: 'Дворовая территория по адресу: Бестужевых ул. 27А', status: 'Проблемные', percent: 80, fio: 'Иванова Н.А.', dates: '15.04.2024-23.08.2024', district: 'СВАО', violations: 5, checks: 2, documents: '0%', photos: 6, lat: 55.81, lng: 37.65 },
+  { title: 'Дворовая территория по адресу: Путевой пр. 38', status: 'Завершён', percent: 100, fio: 'Андреев Ю.А.', dates: '15.04.2024-20.08.2024', district: 'СВАО', violations: 2, checks: 1, documents: '0%', photos: 3, lat: 55.8, lng: 37.6 },
+  { title: 'Дворовая территория по адресу: Флотская ул. 54, 58 к.1', status: 'Завершён', percent: 100, fio: 'Семенов И.П.', dates: '15.04.2024-15.08.2024', district: 'САО', violations: 1, checks: 1, documents: '0%', photos: 3, lat: 55.83, lng: 37.5 },
+  { title: 'Дворовая территория по адресу: Каргопольская ул. 18', status: 'Завершён', percent: 100, fio: 'Петров Д.С.', dates: '15.04.2024-28.08.2024', district: 'СВАО', violations: 3, checks: 2, documents: '0%', photos: 3, lat: 55.85, lng: 37.7 },
+  { title: 'Дворовая территория по адресу: Бестужевых ул. 27А', status: 'Проблемные', percent: 80, fio: 'Иванова Н.А.', dates: '15.04.2024-23.08.2024', district: 'СВАО', violations: 5, checks: 2, documents: '0%', photos: 3, lat: 55.81, lng: 37.65 },
   { title: 'Дворовая территория по адресу: Челобитьевское шоссе 14 к.3,14 к.4,14 к.5', status: 'Ожидают проверки', percent: 60, fio: 'Кузнецов А.В.', dates: '15.04.2024-20.08.2024', district: 'СВАО', violations: 2, checks: 2, documents: '0%', photos: 11, lat: 55.90, lng: 37.8 },
-  { title: 'Дворовая территория по адресу: Мира просп. 194', status: 'Проверено', percent: 100, fio: 'Фёдоров М.Г.', dates: '15.04.2024-20.08.2024', district: 'СВАО', violations: 0, checks: 1, documents: '0%', photos: 9, lat: 55.82, lng: 37.55 }
+  { title: 'Дворовая территория по адресу: Мира просп. 194', status: 'Проверено', percent: 100, fio: 'Фёдоров М.Г.', dates: '15.04.2024-20.08.2024', district: 'СВАО', violations: 0, checks: 1, documents: '0%', photos: 3, lat: 55.82, lng: 37.55 }
 ];
 
 // Тема: переключатель
