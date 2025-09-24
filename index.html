@@ -65,9 +65,74 @@
       </div>
 
       <!-- Далее будут секции: графики, карта, рейтинги и т.д. -->
-      <section class="dashboard-body">
-        <!-- Здесь будет твой контент -->
-      </section>
+    <section class="dashboard-body">
+
+  <!-- Блок 1: Общая сводка -->
+  <div class="dashboard-top">
+    <div id="statusPieChart" class="dashboard-chart"></div>
+    <div class="kpi-cards">
+      <div class="kpi-card">
+        <h3>Объектов всего</h3>
+        <p id="totalObjects">–</p>
+      </div>
+      <div class="kpi-card">
+        <h3>% Выполнения</h3>
+        <p id="avgCompletion">–</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Блок 2: Диаграмма Ганта и карта -->
+  <div class="dashboard-center">
+    <div class="gantt-wrapper">
+      <h3>График Ганта объектов</h3>
+      <div id="ganttChart" class="gantt-chart"></div>
+    </div>
+    <div class="map-wrapper">
+      <h3>Карта объектов</h3>
+      <div id="map" class="map-box"></div>
+    </div>
+  </div>
+
+  <!-- Блок 4: Метрики карточками -->
+  <div class="metric-cards">
+    <div class="metric-card">
+      <h4>Средний % готовности</h4>
+      <p id="avgPercentReady">–</p>
+    </div>
+    <div class="metric-card">
+      <h4>Количество проверок</h4>
+      <p id="totalChecks">–</p>
+    </div>
+    <div class="metric-card">
+      <h4>Количество нарушений</h4>
+      <p id="totalViolations">–</p>
+    </div>
+    <div class="metric-card">
+      <h4>Фотофиксации</h4>
+      <p id="totalPhotos">–</p>
+    </div>
+  </div>
+
+  <!-- Блок 6: Динамика -->
+  <div class="graph-block">
+    <h3>Динамика активных объектов по годам</h3>
+    <div id="activityChart" class="dashboard-chart"></div>
+  </div>
+
+  <!-- Блок 7: Рейтинг -->
+  <div class="rating-block">
+    <div class="rating-section">
+      <h4>Топ-5 объектов с нарушениями</h4>
+      <ul id="topObjectsList"></ul>
+    </div>
+    <div class="rating-section">
+      <h4>Топ-5 подрядчиков по нарушениям</h4>
+      <ul id="topContractorsList"></ul>
+    </div>
+  </div>
+</section>
+
     </main>
   </div>
 </body>
