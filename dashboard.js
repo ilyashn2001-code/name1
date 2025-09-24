@@ -98,8 +98,8 @@ const color = o.statusObject === 'Завершён' ? 'green' : 'orange';
     marker.on('click', () => {
   const popupHtml = `
   <strong>${o.title}</strong><br/>
-  🏗 Статус объекта: ${o.statusObject}<br/>
-  ✅ Статус проверки: ${o.statusCheck}<br/>
+  Статус объекта: ${o.statusObject}<br/>
+  Статус проверки: ${o.statusCheck}<br/>
   Готовность: ${o.percent}%<br/>
   Нарушений: ${o.violations}<br/>
   Проверок: ${o.checks}<br/>
