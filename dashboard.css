@@ -285,3 +285,28 @@ body {
   border-bottom: 1px solid #eee;
   font-size: 14px;
 }
+.metric-card {
+  background-color: #f5f7fa;
+  border: 1px solid #d1d5db;
+  border-left: 4px solid #3b82f6; /* Синяя полоса */
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  font-family: 'Montserrat', sans-serif;
+  flex: 1;
+}
+
+.metric-card span.metric-label {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.metric-card span#metric-ready,
+.metric-card span#metric-checks,
+.metric-card span#metric-violations,
+.metric-card span#metric-photos {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
+}
