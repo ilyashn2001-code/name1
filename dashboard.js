@@ -22,53 +22,118 @@ window.addEventListener('DOMContentLoaded', () => {
   if (saved) document.documentElement.setAttribute('data-theme', saved);
 });
 
-// Функции отрисовки
+// ─────────────────────────────
+// Универсальные утилиты
+
+function parseRangeToTimestamps(rangeStr) {
+  const [start, end] = rangeStr.split('-');
+  const parse = ds => {
+    const [d, m, y] = ds.split('.');
+    return Date.UTC(+y, +m - 1, +d);
+  };
+  return { start: parse(start), end: parse(end) };
+}
+
+function getUnique(data, keyOrFn) {
+  return [...new Set(data.map(typeof keyOrFn === 'function' ? keyOrFn : o => o[keyOrFn]))].filter(Boolean);
+}
+
+// ─────────────────────────────
+// Фильтрация и ререндер
+
+function applyFilters(data) {
+  const get = id => document.getElementById(id)?.value || '';
+  const startDate = document.getElementById('dateStartFilter')?.value;
+  const endDate = document.getElementById('dateEndFilter')?.value;
+
+  return data.filter(o => {
+    if (get('districtFilter') && o.district !== get('districtFilter')) return false;
+    if (get('filter-area') && o.area !== get('filter-area')) return false;
+    if (get('filter-customer') && o.customer !== get('filter-customer')) return false;
+    if (get('filter-contractor') && o.contractor !== get('filter-contractor')) return false;
+    if (get('filter-status-object') && o.statusObject !== get('filter-status-object')) return false;
+    if (get('filter-status-check') && o.statusCheck !== get('filter-status-check')) return false;
+    if (get('filter-year') && !o.dates.includes(get('filter-year'))) return false;
+
+    if (startDate || endDate) {
+      const { start, end } = parseRangeToTimestamps(o.dates);
+      const from = startDate ? new Date(startDate).getTime() : null;
+      const to = endDate ? new Date(endDate).getTime() : null;
+      if ((from && end < from) || (to && start > to)) return false;
+    }
+
+    return true;
+  });
+}
+
+function setupFilterListeners() {
+  const ids = [
+    'districtFilter', 'filter-area', 'filter-customer', 'filter-contractor',
+    'filter-status-object', 'filter-status-check', 'filter-year',
+    'dateStartFilter', 'dateEndFilter'
+  ];
+
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('change', () => {
+        const filtered = applyFilters(objectsData);
+        renderTriplePieCharts(filtered);
+        renderKpi(filtered);
+        renderGantt(filtered);
+        renderMap(filtered);
+        renderLineChart(filtered);
+        renderRanking(filtered);
+      });
+    }
+  });
+}
+
+function fillFilters(data) {
+  const fill = (id, values, placeholder = 'Все') => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = `<option value="">${placeholder}</option>`;
+    values.forEach(val => {
+      const opt = document.createElement('option');
+      opt.value = val;
+      opt.textContent = val;
+      el.appendChild(opt);
+    });
+  };
+
+  fill('filter-area', getUnique(data, 'area'), 'Район');
+  fill('filter-customer', getUnique(data, 'customer'), 'Заказчик');
+  fill('filter-contractor', getUnique(data, 'contractor'), 'Подрядчик');
+  fill('filter-status-object', getUnique(data, 'statusObject'), 'Статус объекта');
+  fill('filter-status-check', getUnique(data, 'statusCheck'), 'Статус проверки');
+  fill('filter-year', getUnique(data, o => (o.dates?.split('.')?.[2])), 'Год проведения');
+}
+
+// ─────────────────────────────
+// Основные функции отрисовки
 
 function renderTriplePieCharts(data) {
-  // Статусы объектов
-  const statusObjCounts = data.reduce((acc, o) => {
-    acc[o.statusObject] = (acc[o.statusObject] || 0) + 1;
-    return acc;
-  }, {});
-  Highcharts.chart('pie-status-object', {
-    chart: { type: 'pie', backgroundColor: 'transparent' },
-    title: { text: '' },
-    series: [{
-      name: 'Объекты',
-      colorByPoint: true,
-      data: Object.entries(statusObjCounts).map(([name, y]) => ({ name, y }))
-    }]
-  });
+  const pie = (id, mapKey, title) => {
+    const counts = data.reduce((acc, o) => {
+      const key = o[mapKey];
+      acc[key] = (acc[key] || 0) + 1;
+      return acc;
+    }, {});
+    Highcharts.chart(id, {
+      chart: { type: 'pie', backgroundColor: 'transparent' },
+      title: { text: title },
+      series: [{
+        name: 'Количество',
+        colorByPoint: true,
+        data: Object.entries(counts).map(([name, y]) => ({ name, y }))
+      }]
+    });
+  };
 
-  // Статусы проверок
-  const statusCheckCounts = data.reduce((acc, o) => {
-    acc[o.statusCheck] = (acc[o.statusCheck] || 0) + 1;
-    return acc;
-  }, {});
-  Highcharts.chart('pie-status-check', {
-    chart: { type: 'pie', backgroundColor: 'transparent' },
-    title: { text: '' },
-    series: [{
-      name: 'Проверки',
-      colorByPoint: true,
-      data: Object.entries(statusCheckCounts).map(([name, y]) => ({ name, y }))
-    }]
-  });
-
-  // Округа
-  const districtCounts = data.reduce((acc, o) => {
-    acc[o.district] = (acc[o.district] || 0) + 1;
-    return acc;
-  }, {});
-  Highcharts.chart('pie-by-district', {
-    chart: { type: 'pie', backgroundColor: 'transparent' },
-    title: { text: '' },
-    series: [{
-      name: 'Округа',
-      colorByPoint: true,
-      data: Object.entries(districtCounts).map(([name, y]) => ({ name, y }))
-    }]
-  });
+  pie('pie-status-object', 'statusObject', 'Статусы объектов');
+  pie('pie-status-check', 'statusCheck', 'Статусы проверок');
+  pie('pie-by-district', 'district', 'Объекты по округам');
 }
 
 function renderKpi(data) {
@@ -84,15 +149,6 @@ function renderKpi(data) {
   document.getElementById('metric-checks').innerText = totalChecks;
   document.getElementById('metric-violations').innerText = totalViolations;
   document.getElementById('metric-photos').innerText = totalPhotos;
-}
-
-function parseRangeToTimestamps(rangeStr) {
-  const [start, end] = rangeStr.split('-');
-  const parse = ds => {
-    const [d, m, y] = ds.split('.');
-    return Date.UTC(+y, +m - 1, +d);
-  };
-  return { start: parse(start), end: parse(end) };
 }
 
 function renderGantt(data) {
@@ -189,15 +245,21 @@ function renderRanking(data) {
   });
 }
 
+// ─────────────────────────────
+// Инициализация
+
 function initDashboard() {
+  fillFilters(objectsData);
   renderTriplePieCharts(objectsData);
   renderKpi(objectsData);
   renderGantt(objectsData);
   renderMap(objectsData);
   renderLineChart(objectsData);
   renderRanking(objectsData);
+  setupFilterListeners();
 }
 
 document.addEventListener('DOMContentLoaded', initDashboard);
+
 
 document.addEventListener('DOMContentLoaded', initDashboard);
