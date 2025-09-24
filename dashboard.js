@@ -116,9 +116,10 @@ function renderMap(data) {
 function renderLineChart(data) {
   const months = [];
   const counts = [];
-  const now = new Date();
+  const year = 2024; // ← жёстко задаём 2024 год
+
   for (let m = 0; m < 12; m++) {
-    const dt = Date.UTC(now.getFullYear(), m, 1);
+    const dt = Date.UTC(year, m, 1);
     months.push(dt);
     const cnt = data.filter(o => {
       const { start, end } = parseRangeToTimestamps(o.dates);
@@ -126,14 +127,16 @@ function renderLineChart(data) {
     }).length;
     counts.push(cnt);
   }
+
   Highcharts.chart('year-dynamics', {
     chart: { type: 'line', backgroundColor: 'transparent' },
-    title: { text: 'Активных объектов по месяцам' },
+    title: { text: `Активных объектов по месяцам (${year})` },
     xAxis: { type: 'datetime', title: { text: 'Месяц' } },
     yAxis: { title: { text: 'Количество' } },
     series: [{ name: 'Активные объекты', data: counts.map((c, i) => [months[i], c]) }]
   });
 }
+
 
 function renderRanking(data) {
   const sorted = [...data].sort((a, b) => (b.violations || 0) - (a.violations || 0));
