@@ -9,7 +9,7 @@ const objectsData = [
 ];
 
 // Тема: переключатель
-const themeToggle = document.getElementById('theme-toggle');
+const themeToggle = document.getElementById('themeToggle');
 themeToggle.addEventListener('click', () => {
   const html = document.documentElement;
   const cur = html.getAttribute('data-theme');
@@ -33,7 +33,7 @@ function renderPieStatus(data) {
     name: status,
     y: cnt
   }));
-  Highcharts.chart('pie-status', {
+  Highcharts.chart('status-pie', {
     chart: { type: 'pie', backgroundColor: 'transparent' },
     title: { text: 'Статусы объектов' },
     series: [{ name: 'Количество', colorByPoint: true, data: series }]
@@ -43,11 +43,18 @@ function renderPieStatus(data) {
 function renderKpi(data) {
   const total = data.length;
   const avgPercent = (data.reduce((s, o) => s + (o.percent || 0), 0) / total).toFixed(1);
-  document.getElementById('kpi-total').innerText = total;
-  document.getElementById('kpi-percent').innerText = avgPercent + '%';
+  const totalChecks = data.reduce((s, o) => s + (o.checks || 0), 0);
+  const totalViolations = data.reduce((s, o) => s + (o.violations || 0), 0);
+  const totalPhotos = data.reduce((s, o) => s + (o.photos || 0), 0);
+
+  document.getElementById('total-objects').innerText = total;
+  document.getElementById('avg-progress').innerText = avgPercent + '%';
+  document.getElementById('metric-ready').innerText = avgPercent + '%';
+  document.getElementById('metric-checks').innerText = totalChecks;
+  document.getElementById('metric-violations').innerText = totalViolations;
+  document.getElementById('metric-photos').innerText = totalPhotos;
 }
 
-// Преобразование дат “DD.MM.YYYY-DD.MM.YYYY” → timestamps
 function parseRangeToTimestamps(rangeStr) {
   const [start, end] = rangeStr.split('-');
   const parse = ds => {
@@ -107,21 +114,19 @@ function renderMap(data) {
 }
 
 function renderLineChart(data) {
-  // пример: считать количество активных объектов по месяцам
-  // упрощённая логика: все объекты считаем активными между start и end
   const months = [];
   const counts = [];
   const now = new Date();
   for (let m = 0; m < 12; m++) {
     const dt = Date.UTC(now.getFullYear(), m, 1);
-    months.push(Date.UTC(now.getFullYear(), m, 1));
+    months.push(dt);
     const cnt = data.filter(o => {
       const { start, end } = parseRangeToTimestamps(o.dates);
       return dt >= start && dt <= end;
     }).length;
     counts.push(cnt);
   }
-  Highcharts.chart('line-chart', {
+  Highcharts.chart('year-dynamics', {
     chart: { type: 'line', backgroundColor: 'transparent' },
     title: { text: 'Активных объектов по месяцам' },
     xAxis: { type: 'datetime', title: { text: 'Месяц' } },
@@ -131,23 +136,22 @@ function renderLineChart(data) {
 }
 
 function renderRanking(data) {
-  // Топ объектов по нарушениям
   const sorted = [...data].sort((a, b) => (b.violations || 0) - (a.violations || 0));
   const top5 = sorted.slice(0, 5);
-  const ul1 = document.querySelector('#ranking-objects ul');
+  const ul1 = document.querySelector('#top-objects');
   ul1.innerHTML = '';
   top5.forEach(o => {
     const li = document.createElement('li');
     li.innerText = `${o.title} — нарушений: ${o.violations || 0}`;
     ul1.appendChild(li);
   });
-  // Топ подрядчиков/заказчиков — здесь просто использовать fio как пример
+
   const countsByFio = data.reduce((acc, o) => {
     acc[o.fio] = (acc[o.fio] || 0) + (o.violations || 0);
     return acc;
   }, {});
   const arr = Object.entries(countsByFio).sort((a, b) => b[1] - a[1]).slice(0, 5);
-  const ul2 = document.querySelector('#ranking-contractors ul');
+  const ul2 = document.querySelector('#top-contractors');
   ul2.innerHTML = '';
   arr.forEach(([fio, violCount]) => {
     const li = document.createElement('li');
