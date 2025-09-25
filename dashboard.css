@@ -403,14 +403,6 @@ body {
   color: #000;
 }
 
-
-
-
-
-
-
-
-
 .filters input,
 .filters select {
   background-color: #ffffff !important; /* всегда белый фон */
@@ -444,4 +436,21 @@ body {
   background-size: 8px;
   padding-right: 28px;
   appearance: none;
+}
+
+.rating-block {
+  background: #ffffff !important; /* всегда белый фон */
+  color: #1e2a3a !important;      /* всегда тёмный текст */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
+
+.rating-block h4 {
+  color: #333333 !important; /* тёмно-серый заголовок */
+}
+
+.rating-block li {
+  color: #444444 !important; /* текст внутри всегда тёмный */
+  border-bottom: 1px solid #eee;
 }
