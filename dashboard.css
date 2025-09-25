@@ -368,28 +368,4 @@ body {
   max-width: 90px;
 }
 
-/* Карточки с рейтингами */
-#top-objects li,
-#top-contractors li {
-  color: #1e2a3a !important; /* фиксируем тёмный цвет текста */
-}
-
-/* Заголовки внутри этих блоков */
-#top-objects-title,
-#top-contractors-title {
-  color: #1e2a3a !important;
-}
-/* Все фильтры */
-.filters select {
-  background-color: #fff !important;
-  color: #1e2a3a !important; /* тёмный текст */
-  border: 1px solid #ccc;
-}
-
-/* Поля даты */
-.filters input[type="date"] {
-  background-color: #fff !important;
-  color: #1e2a3a !important;
-  border: 1px solid #ccc;
-}
 
