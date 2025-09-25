@@ -242,14 +242,20 @@ function renderGantt(data) {
 
 
 
-
-
-
-
+let map;          // глобальная карта (создаётся один раз)
+let layersGroup;  // группа слоёв (обновляется при фильтрации)
 
 function renderMap(data) {
-  const map = L.map('map', { attributionControl: false }); // убираем подпись
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+  // создаём карту только один раз
+  if (!map) {
+    map = L.map('map', { attributionControl: false });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+  }
+
+  // очищаем старые слои
+  if (layersGroup) {
+    map.removeLayer(layersGroup);
+  }
 
   const allLayers = [];
 
@@ -271,7 +277,7 @@ function renderMap(data) {
         Нарушений: ${o.violations}<br/>
         Проверок: ${o.checks}<br/>
         Ответственный: ${o.fio}
-      `).addTo(map);
+      `);
     } else if (o.lat && o.lng) {
       // Точка
       layer = L.circleMarker([o.lat, o.lng], {
@@ -286,7 +292,7 @@ function renderMap(data) {
         Нарушений: ${o.violations}<br/>
         Проверок: ${o.checks}<br/>
         Ответственный: ${o.fio}
-      `).addTo(map);
+      `);
     }
 
     if (layer) {
@@ -294,14 +300,22 @@ function renderMap(data) {
     }
   });
 
-  // Автофокус на все объекты
-if (allLayers.length > 0) {
-  const group = L.featureGroup(allLayers);
-  map.fitBounds(group.getBounds(), {
-    padding: [20, 20], // маленькие отступы => карта сильнее приблизит
-    maxZoom: 17        // можно даже 18 (очень близко)
-  });
+  // добавляем все новые слои на карту
+  layersGroup = L.featureGroup(allLayers).addTo(map);
+
+  // автофокус на все объекты
+  if (allLayers.length > 0) {
+    map.fitBounds(layersGroup.getBounds(), {
+      padding: [20, 20],
+      maxZoom: 17
+    });
+  }
 }
+
+
+
+
+
 
 
 
