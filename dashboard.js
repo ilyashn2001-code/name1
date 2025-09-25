@@ -248,21 +248,22 @@ function renderGantt(data) {
 
 
 function renderMap(data) {
-  const map = L.map('map').setView([55.8, 37.6], 11);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap'
-  }).addTo(map);
+  const map = L.map('map', { attributionControl: false }); // убираем подпись
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+  const allLayers = [];
 
   data.forEach(o => {
+    let layer;
     if (o.geometry) {
-      // Добавляем полигон
-      L.geoJSON(o.geometry, {
+      // Полигон
+      layer = L.geoJSON(o.geometry, {
         style: {
           color: o.statusObject === 'Завершён' ? 'green' : 'orange',
           weight: 2,
           fillOpacity: 0.4
         }
-      }).addTo(map).bindPopup(`
+      }).bindPopup(`
         <strong>${o.title}</strong><br/>
         Статус объекта: ${o.statusObject}<br/>
         Статус проверки: ${o.statusCheck}<br/>
@@ -270,14 +271,14 @@ function renderMap(data) {
         Нарушений: ${o.violations}<br/>
         Проверок: ${o.checks}<br/>
         Ответственный: ${o.fio}
-      `);
+      `).addTo(map);
     } else if (o.lat && o.lng) {
-      // fallback если вдруг нет полигона — точка
-      L.circleMarker([o.lat, o.lng], {
+      // Точка
+      layer = L.circleMarker([o.lat, o.lng], {
         radius: 8,
         color: o.statusObject === 'Завершён' ? 'green' : 'orange',
         fillOpacity: 0.8
-      }).addTo(map).bindPopup(`
+      }).bindPopup(`
         <strong>${o.title}</strong><br/>
         Статус объекта: ${o.statusObject}<br/>
         Статус проверки: ${o.statusCheck}<br/>
@@ -285,9 +286,19 @@ function renderMap(data) {
         Нарушений: ${o.violations}<br/>
         Проверок: ${o.checks}<br/>
         Ответственный: ${o.fio}
-      `);
+      `).addTo(map);
+    }
+
+    if (layer) {
+      allLayers.push(layer);
     }
   });
+
+  // Автофокус на все объекты
+  if (allLayers.length > 0) {
+    const group = L.featureGroup(allLayers);
+    map.fitBounds(group.getBounds());
+  }
 }
 
 
