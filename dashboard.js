@@ -126,6 +126,7 @@ function renderTriplePieCharts(data) {
     Highcharts.chart(id, {
       chart: { type: 'pie', backgroundColor: 'transparent' },
       title: { text: title },
+      credits: { enabled: false },
       series: [{
         name: 'Количество',
         colorByPoint: true,
