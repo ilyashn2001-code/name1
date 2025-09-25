@@ -367,32 +367,4 @@ body {
   min-width: 90px;
   max-width: 90px;
 }
-/* Фильтры всегда белые, независимо от темы */
-.filters select {
-  background-color: #fff !important;   /* белый фон */
-  color: #000 !important;              /* чёрный текст */
-  border: 1px solid #ccc;              /* светлая рамка */
-  border-radius: 6px;
-  padding: 6px 10px;
-  font-size: 14px;
-}
 
-/* Чтобы стрелка у select тоже не темнела в тёмной теме */
-.filters select option {
-  background-color: #fff;
-  color: #000;
-}
-/* Дата-поля всегда белые */
-.filters input[type="date"] {
-  background-color: #fff !important;  /* белый фон */
-  color: #000 !important;             /* чёрный текст */
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 6px 10px;
-  font-size: 14px;
-}
-
-/* Всплывающий календарь (для браузеров, где применимо) */
-.filters input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(0); /* иконка календаря тёмная, не белая */
-}
