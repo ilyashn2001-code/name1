@@ -180,6 +180,7 @@ function renderGantt(data) {
       height: Math.max(250, 60 + tasks.length * 50)
     },
     title: { text: 'График Ганта объектов' },
+    credits: { enabled: false },
     xAxis: [{
       type: 'datetime',
       tickInterval: 30 * 24 * 3600 * 1000,
@@ -368,6 +369,7 @@ function renderLineChart(data) {
   Highcharts.chart('year-dynamics', {
     chart: { type: 'line', backgroundColor: 'transparent' },
     title: { text: `Динамика объектов по месяцам (${year})` },
+    credits: { enabled: false },
     xAxis: { type: 'datetime', title: { text: 'Месяц' } },
     yAxis: { title: { text: 'Количество' } },
     tooltip: { shared: true },
