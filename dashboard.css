@@ -367,5 +367,33 @@ body {
   min-width: 90px;
   max-width: 90px;
 }
+.kpi-card {
+  background: #eaf4ff; /* светло-голубой фон */
+  border-radius: 6px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 6px solid #1e90ff; /* синяя полоска слева */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.kpi-title {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.kpi-value {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+}
 
 
