@@ -217,8 +217,7 @@ function renderGantt(data) {
         enabled: true,
         borderColor: '#ddd'
       },
-      min: 0,
-        max: Math.max(data.length - 1, 1)
+      min: 0
     },
     series: [{
       name: 'Объекты',
