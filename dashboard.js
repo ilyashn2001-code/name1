@@ -177,7 +177,7 @@ function renderGantt(data) {
 
   Highcharts.ganttChart('gantt-chart', {
     chart: {
-      height: 60 + tasks.length * 50
+      height: Math.max(250, 60 + tasks.length * 50)
     },
     title: { text: 'График Ганта объектов' },
     xAxis: [{
@@ -218,7 +218,7 @@ function renderGantt(data) {
         borderColor: '#ddd'
       },
       min: 0,
-      max: data.length - 1
+        max: Math.max(data.length - 1, 1)
     },
     series: [{
       name: 'Объекты',
