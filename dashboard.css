@@ -368,3 +368,12 @@ body {
   max-width: 90px;
 }
 
+/* Заголовки в плашках */
+.card h3 {
+  color: #1e2a3a !important; /* тёмный цвет, как в светлой теме */
+}
+
+/* Сами пункты списка */
+.card ul li {
+  color: #1e2a3a !important;
+}
