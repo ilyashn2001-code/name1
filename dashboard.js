@@ -151,6 +151,11 @@ function renderKpi(data) {
   document.getElementById('metric-photos').innerText = totalPhotos;
 }
 
+
+
+
+
+
 function renderGantt(data) {
   const tasks = data.map((o, idx) => {
     const { start, end } = parseRangeToTimestamps(o.dates);
@@ -159,44 +164,47 @@ function renderGantt(data) {
       name: o.title,
       start: start,
       end: end,
-      color: o.percent >= 100 ? undefined : '#e74c3c'
+      y: idx // это ключевой момент: индекс как позиция по Y
     };
   });
 
   Highcharts.ganttChart('gantt-chart', {
-    title: { text: 'График Ганта объектов' },
-    xAxis: {
-      type: 'datetime',
-      grid: {
-        enabled: true,
-        borderColor: '#e0e0e0'
-      },
-      tickInterval: 30 * 24 * 3600 * 1000, // 1 месяц
-      labels: {
-        style: {
-          fontSize: '12px'
-        }
-      },
-      // Два уровня: год + месяц
-      units: [
-        ['year', [1]],
-        ['month', [1]]
-      ],
-      dateTimeLabelFormats: {
-        month: '%B', // "Апрель", "Май" и т.д.
-        year: '%Y'   // "2024"
-      }
+    chart: {
+      height: 60 + tasks.length * 40 // авто-высота по количеству задач
     },
+    title: { text: 'График Ганта объектов' },
+    xAxis: [{
+      type: 'datetime',
+      tickInterval: 30 * 24 * 3600 * 1000,
+      labels: {
+        format: '{value:%B}',
+        style: { fontSize: '12px' }
+      },
+      units: [['month', [1]]],
+      dateTimeLabelFormats: {
+        month: '%B',
+        year: '%Y'
+      }
+    }, {
+      type: 'datetime',
+      labels: {
+        format: '{value:%Y}',
+        style: { fontWeight: 'bold' }
+      },
+      opposite: true,
+      linkedTo: 0,
+      tickInterval: 365 * 24 * 3600 * 1000,
+      dateTimeLabelFormats: { year: '%Y' }
+    }],
     yAxis: {
       type: 'category',
+      categories: data.map(o => o.title),
       grid: {
-        columns: [
-          {
-            title: { text: 'Объекты' },
-            categories: tasks.map(t => t.name)
-          }
-        ]
-      }
+        enabled: true,
+        borderColor: '#ddd'
+      },
+      min: 0,
+      max: data.length - 1
     },
     series: [{
       name: 'Объекты',
@@ -213,6 +221,16 @@ function renderGantt(data) {
     }
   });
 }
+
+
+
+
+
+
+
+
+
+
 
 
 function renderMap(data) {
