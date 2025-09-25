@@ -414,7 +414,7 @@ body {
 .filters input,
 .filters select {
   background-color: #ffffff !important; /* всегда белый фон */
-  color: var(--text-color) !important;  /* текст остаётся как в теме */
+  color: #333333 !important;           /* тёмно-серый текст */
   border: 1px solid #ccc;
   border-radius: 6px;
   padding: 10px 12px;
@@ -424,8 +424,8 @@ body {
 
 /* placeholder у input */
 .filters input::placeholder {
-  color: var(--text-color) !important;
-  opacity: 0.7;
+  color: #555555 !important;
+  opacity: 1;
 }
 
 /* hover эффект */
@@ -433,9 +433,10 @@ body {
 .filters select:hover {
   border: 1px solid var(--accent);
   background-color: #ffffff !important;
+  color: #333333 !important;
 }
 
-/* стрелочка у select остаётся в цвете темы */
+/* стрелочка у select (серая) */
 .filters select {
   background-image: url("data:image/svg+xml,%3Csvg width='8' height='5' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 6L0.5 0.5H9.5L5 6Z' fill='%23333'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -444,4 +445,3 @@ body {
   padding-right: 28px;
   appearance: none;
 }
-
