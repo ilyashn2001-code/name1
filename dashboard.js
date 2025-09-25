@@ -113,6 +113,9 @@ function fillFilters(data) {
 // ─────────────────────────────
 // Основные функции отрисовки
 
+
+
+
 function renderTriplePieCharts(data) {
   const pie = (id, mapKey, title) => {
     const counts = data.reduce((acc, o) => {
@@ -150,6 +153,9 @@ function renderKpi(data) {
   document.getElementById('metric-violations').innerText = totalViolations;
   document.getElementById('metric-photos').innerText = totalPhotos;
 }
+
+
+
 
 
 
@@ -270,29 +276,79 @@ function renderMap(data) {
 }
 
 
+
+
+
 function renderLineChart(data) {
   const months = [];
-  const counts = [];
   const year = 2024;
+
+  const activeCounts = [];
+  const completedCounts = [];
+  const violationsCounts = [];
+  const checkedCounts = [];
 
   for (let m = 0; m < 12; m++) {
     const dt = Date.UTC(year, m, 1);
     months.push(dt);
-    const cnt = data.filter(o => {
+
+    const active = data.filter(o => {
       const { start, end } = parseRangeToTimestamps(o.dates);
-      return dt >= start && dt <= end;
+      return dt >= start && dt <= end && o.statusObject !== 'Завершён';
     }).length;
-    counts.push(cnt);
+
+    const completed = data.filter(o => {
+      const { start, end } = parseRangeToTimestamps(o.dates);
+      return dt >= start && dt <= end && o.statusObject === 'Завершён';
+    }).length;
+
+    const violations = data.filter(o => {
+      const { start, end } = parseRangeToTimestamps(o.dates);
+      return dt >= start && dt <= end && (o.violations || 0) > 0;
+    }).length;
+
+    const checked = data.filter(o => {
+      const { start, end } = parseRangeToTimestamps(o.dates);
+      return dt >= start && dt <= end && o.statusCheck === 'Проверено';
+    }).length;
+
+    activeCounts.push([dt, active]);
+    completedCounts.push([dt, completed]);
+    violationsCounts.push([dt, violations]);
+    checkedCounts.push([dt, checked]);
   }
 
   Highcharts.chart('year-dynamics', {
     chart: { type: 'line', backgroundColor: 'transparent' },
-    title: { text: `Активных объектов по месяцам (${year})` },
+    title: { text: `Динамика объектов по месяцам (${year})` },
     xAxis: { type: 'datetime', title: { text: 'Месяц' } },
     yAxis: { title: { text: 'Количество' } },
-    series: [{ name: 'Активные объекты', data: counts.map((c, i) => [months[i], c]) }]
+    tooltip: { shared: true },
+    legend: { layout: 'horizontal', align: 'center', verticalAlign: 'bottom' },
+    series: [
+      { name: 'Активные объекты', data: activeCounts, color: '#1e90ff' },
+      { name: 'Завершённые объекты', data: completedCounts, color: '#28a745' },
+      { name: 'Объекты с нарушениями', data: violationsCounts, color: '#dc3545' },
+      { name: 'Проверенные объекты', data: checkedCounts, color: '#ffc107' }
+    ]
   });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function renderRanking(data) {
   const sorted = [...data].sort((a, b) => (b.violations || 0) - (a.violations || 0));
