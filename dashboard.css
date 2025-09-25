@@ -368,12 +368,15 @@ body {
   max-width: 90px;
 }
 
-/* Заголовки в плашках */
-.card h3 {
-  color: #1e2a3a !important; /* тёмный цвет, как в светлой теме */
+/* Карточки с рейтингами */
+#top-objects li,
+#top-contractors li {
+  color: #1e2a3a !important; /* фиксируем тёмный цвет текста */
 }
 
-/* Сами пункты списка */
-.card ul li {
+/* Заголовки внутри этих блоков */
+#top-objects-title,
+#top-contractors-title {
   color: #1e2a3a !important;
 }
+
