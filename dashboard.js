@@ -295,11 +295,14 @@ function renderMap(data) {
   });
 
   // Автофокус на все объекты
-  if (allLayers.length > 0) {
-    const group = L.featureGroup(allLayers);
-    map.fitBounds(group.getBounds());
-  }
+if (allLayers.length > 0) {
+  const group = L.featureGroup(allLayers);
+  map.fitBounds(group.getBounds(), {
+    padding: [20, 20], // маленькие отступы => карта сильнее приблизит
+    maxZoom: 17        // можно даже 18 (очень близко)
+  });
 }
+
 
 
 
