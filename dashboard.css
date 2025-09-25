@@ -406,3 +406,42 @@ body {
 
 
 
+
+
+
+
+
+.filters input,
+.filters select {
+  background-color: #ffffff !important; /* всегда белый фон */
+  color: var(--text-color) !important;  /* текст остаётся как в теме */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 14px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* placeholder у input */
+.filters input::placeholder {
+  color: var(--text-color) !important;
+  opacity: 0.7;
+}
+
+/* hover эффект */
+.filters input:hover,
+.filters select:hover {
+  border: 1px solid var(--accent);
+  background-color: #ffffff !important;
+}
+
+/* стрелочка у select остаётся в цвете темы */
+.filters select {
+  background-image: url("data:image/svg+xml,%3Csvg width='8' height='5' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 6L0.5 0.5H9.5L5 6Z' fill='%23333'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 8px;
+  padding-right: 28px;
+  appearance: none;
+}
+
