@@ -248,20 +248,21 @@ function renderGantt(data) {
 
 
 function renderMap(data) {
-  const map = L.map('map').setView([55.8, 37.6], 10);
+  const map = L.map('map').setView([55.8, 37.6], 11);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap'
   }).addTo(map);
 
   data.forEach(o => {
-    const color = o.statusObject === 'Завершён' ? 'green' : 'orange';
-    const marker = L.circleMarker([o.lat, o.lng], {
-      radius: 8,
-      color: color,
-      fillOpacity: 0.8
-    }).addTo(map);
-    marker.on('click', () => {
-      const popupHtml = `
+    if (o.geometry) {
+      // Добавляем полигон
+      L.geoJSON(o.geometry, {
+        style: {
+          color: o.statusObject === 'Завершён' ? 'green' : 'orange',
+          weight: 2,
+          fillOpacity: 0.4
+        }
+      }).addTo(map).bindPopup(`
         <strong>${o.title}</strong><br/>
         Статус объекта: ${o.statusObject}<br/>
         Статус проверки: ${o.statusCheck}<br/>
@@ -269,11 +270,27 @@ function renderMap(data) {
         Нарушений: ${o.violations}<br/>
         Проверок: ${o.checks}<br/>
         Ответственный: ${o.fio}
-      `;
-      marker.bindPopup(popupHtml).openPopup();
-    });
+      `);
+    } else if (o.lat && o.lng) {
+      // fallback если вдруг нет полигона — точка
+      L.circleMarker([o.lat, o.lng], {
+        radius: 8,
+        color: o.statusObject === 'Завершён' ? 'green' : 'orange',
+        fillOpacity: 0.8
+      }).addTo(map).bindPopup(`
+        <strong>${o.title}</strong><br/>
+        Статус объекта: ${o.statusObject}<br/>
+        Статус проверки: ${o.statusCheck}<br/>
+        Готовность: ${o.percent}%<br/>
+        Нарушений: ${o.violations}<br/>
+        Проверок: ${o.checks}<br/>
+        Ответственный: ${o.fio}
+      `);
+    }
   });
 }
+
+
 
 
 
