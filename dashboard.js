@@ -164,13 +164,14 @@ function renderGantt(data) {
       name: o.title,
       start: start,
       end: end,
-      y: idx
+      y: idx,
+      color: '#42a5f5' // ← Голубой цвет для всех
     };
   });
 
   Highcharts.ganttChart('gantt-chart', {
     chart: {
-      height: 60 + tasks.length * 50 // ← БОЛЬШЕЕ расстояние между строками
+      height: 60 + tasks.length * 50
     },
     title: { text: 'График Ганта объектов' },
     xAxis: [{
@@ -200,8 +201,8 @@ function renderGantt(data) {
       type: 'category',
       categories: data.map(o => o.title),
       labels: {
-        align: 'left', // ← ВЫРАВНИВАНИЕ по ЛЕВОМУ краю
-        x: 5,          // ← ОТСТУП внутрь
+        align: 'left',
+        x: 5,
         style: {
           fontSize: '13px'
         }
