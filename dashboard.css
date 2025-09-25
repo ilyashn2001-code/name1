@@ -382,3 +382,17 @@ body {
   background-color: #fff;
   color: #000;
 }
+/* Дата-поля всегда белые */
+.filters input[type="date"] {
+  background-color: #fff !important;  /* белый фон */
+  color: #000 !important;             /* чёрный текст */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
+/* Всплывающий календарь (для браузеров, где применимо) */
+.filters input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0); /* иконка календаря тёмная, не белая */
+}
