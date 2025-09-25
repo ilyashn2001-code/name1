@@ -164,13 +164,13 @@ function renderGantt(data) {
       name: o.title,
       start: start,
       end: end,
-      y: idx // это ключевой момент: индекс как позиция по Y
+      y: idx
     };
   });
 
   Highcharts.ganttChart('gantt-chart', {
     chart: {
-      height: 60 + tasks.length * 40 // авто-высота по количеству задач
+      height: 60 + tasks.length * 50 // ← БОЛЬШЕЕ расстояние между строками
     },
     title: { text: 'График Ганта объектов' },
     xAxis: [{
@@ -189,7 +189,7 @@ function renderGantt(data) {
       type: 'datetime',
       labels: {
         format: '{value:%Y}',
-        style: { fontWeight: 'bold' }
+        style: { fontWeight: 'bold', fontSize: '13px' }
       },
       opposite: true,
       linkedTo: 0,
@@ -199,6 +199,13 @@ function renderGantt(data) {
     yAxis: {
       type: 'category',
       categories: data.map(o => o.title),
+      labels: {
+        align: 'left', // ← ВЫРАВНИВАНИЕ по ЛЕВОМУ краю
+        x: 5,          // ← ОТСТУП внутрь
+        style: {
+          fontSize: '13px'
+        }
+      },
       grid: {
         enabled: true,
         borderColor: '#ddd'
