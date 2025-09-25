@@ -162,11 +162,58 @@ function renderGantt(data) {
       color: o.percent >= 100 ? undefined : '#e74c3c'
     };
   });
+
   Highcharts.ganttChart('gantt-chart', {
     title: { text: 'График Ганта объектов' },
-    series: [{ name: 'Объекты', data: tasks }]
+    xAxis: {
+      type: 'datetime',
+      grid: {
+        enabled: true,
+        borderColor: '#e0e0e0'
+      },
+      tickInterval: 30 * 24 * 3600 * 1000, // 1 месяц
+      labels: {
+        style: {
+          fontSize: '12px'
+        }
+      },
+      // Два уровня: год + месяц
+      units: [
+        ['year', [1]],
+        ['month', [1]]
+      ],
+      dateTimeLabelFormats: {
+        month: '%B', // "Апрель", "Май" и т.д.
+        year: '%Y'   // "2024"
+      }
+    },
+    yAxis: {
+      type: 'category',
+      grid: {
+        columns: [
+          {
+            title: { text: 'Объекты' },
+            categories: tasks.map(t => t.name)
+          }
+        ]
+      }
+    },
+    series: [{
+      name: 'Объекты',
+      data: tasks
+    }],
+    navigator: { enabled: false },
+    scrollbar: { enabled: false },
+    lang: {
+      months: [
+        'Январь', 'Февраль', 'Март', 'Апрель',
+        'Май', 'Июнь', 'Июль', 'Август',
+        'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+      ]
+    }
   });
 }
+
 
 function renderMap(data) {
   const map = L.map('map').setView([55.8, 37.6], 10);
