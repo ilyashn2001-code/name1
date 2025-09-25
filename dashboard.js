@@ -351,6 +351,7 @@ function renderLineChart(data) {
 
 
 function renderRanking(data) {
+  // ТОП-5 объектов с нарушениями (оставляем как было)
   const sorted = [...data].sort((a, b) => (b.violations || 0) - (a.violations || 0));
   const top5 = sorted.slice(0, 5);
   const ul1 = document.querySelector('#top-objects');
@@ -361,19 +362,27 @@ function renderRanking(data) {
     ul1.appendChild(li);
   });
 
-  const countsByFio = data.reduce((acc, o) => {
-    acc[o.fio] = (acc[o.fio] || 0) + (o.violations || 0);
-    return acc;
-  }, {});
-  const arr = Object.entries(countsByFio).sort((a, b) => b[1] - a[1]).slice(0, 5);
+  // ТОП-5 видов работ с нарушениями (твой пример, хардкодом)
+  const works = [
+    "Устройство дорожного бортового камня в рамках благоустройства территории",
+    "Устройство покрытия асфальтобетонного проезда в рамках благоустройства территории",
+    "Ремонт газона в рамках благоустройства территории",
+    "Замена садового бортового камня в рамках благоустройства территории",
+    "Устройство дорожного бортового камня в рамках благоустройства территории"
+  ];
+
   const ul2 = document.querySelector('#top-contractors');
   ul2.innerHTML = '';
-  arr.forEach(([fio, violCount]) => {
+  works.forEach(work => {
     const li = document.createElement('li');
-    li.innerText = `${fio} — нарушений: ${violCount}`;
+    li.innerText = work;
     ul2.appendChild(li);
   });
+
+  // и поменяй заголовок в HTML:
+  // <h3>Топ-5 видов работ с нарушениями</h3>
 }
+
 
 // ─────────────────────────────
 // Инициализация
