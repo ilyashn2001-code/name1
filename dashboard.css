@@ -343,3 +343,27 @@ body {
 #filter-year {
   min-width: 180px; /* или больше — подбери по макету */
 }
+/* --- 📌 Новый стиль для фильтров в одну строку --- */
+.filters {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.filters select,
+.filters input {
+  display: inline-block;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Сделаем фиксированную ширину для округов и районов */
+#districtFilter,
+#filter-area {
+  width: 90px;
+  min-width: 90px;
+  max-width: 90px;
+}
