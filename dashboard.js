@@ -264,12 +264,15 @@ function renderMap(data) {
     if (o.geometry) {
       // Полигон
       layer = L.geoJSON(o.geometry, {
-        style: {
-          color: o.statusObject === 'Завершён' ? 'green' : 'orange',
-          weight: 2,
-          fillOpacity: 0.4
-        }
-      }).bindPopup(`
+  style: {
+    color: o.statusObject === 'Завершён' ? 'green' : 'orange',
+    weight: 2,
+    fillOpacity: 0.4
+  },
+  simplifyFactor: 0.5,  // коэффициент упрощения (0–1, чем больше → меньше точек)
+  tolerance: 5          // минимальное расстояние между точками в пикселях
+})
+.bindPopup(`
         <strong>${o.title}</strong><br/>
         Статус объекта: ${o.statusObject}<br/>
         Статус проверки: ${o.statusCheck}<br/>
