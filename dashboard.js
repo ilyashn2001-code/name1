@@ -162,48 +162,37 @@ function renderGantt(data) {
       color: o.percent >= 100 ? undefined : '#e74c3c'
     };
   });
-
   Highcharts.ganttChart('gantt-chart', {
     title: { text: 'График Ганта объектов' },
-    xAxis: {
-      currentDateIndicator: true,
-      min: Date.UTC(2024, 3, 1), // с апреля
-      max: Date.UTC(2024, 8, 31), // до конца августа
-      labels: {
-        format: '{value:%b}', // только месяц (Apr, May, ...)
-        style: { fontWeight: 'bold' }
-      },
-      tickInterval: 30 * 24 * 3600 * 1000, // 1 месяц
-      tickPixelInterval: 70,
-      grid: { enabled: true }
-    },
-    xAxis: {
-      type: 'datetime',
-      tickInterval: 30 * 24 * 3600 * 1000, // месяцы
-      labels: {
-        formatter: function () {
-          return Highcharts.dateFormat('%B', this.value); // Месяц (напр. "Апрель")
-        },
-        style: { fontSize: '13px' }
-      },
-      grid: {
-        enabled: true,
-        borderColor: '#ccc'
-      },
-      dateTimeLabelFormats: {
-        month: '%B',
-        year: '%Y'
-      }
-    },
-    yAxis: {
-      type: 'category',
-      grid: { columns: [{ title: { text: 'Объекты' } }] }
-    },
-    series: [{
-      name: 'Объекты',
-      data: tasks
-    }],
-    navigator: { enabled: false }
+    series: [{ name: 'Объекты', data: tasks }]
+  });
+}
+
+function renderMap(data) {
+  const map = L.map('map').setView([55.8, 37.6], 10);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap'
+  }).addTo(map);
+
+  data.forEach(o => {
+    const color = o.statusObject === 'Завершён' ? 'green' : 'orange';
+    const marker = L.circleMarker([o.lat, o.lng], {
+      radius: 8,
+      color: color,
+      fillOpacity: 0.8
+    }).addTo(map);
+    marker.on('click', () => {
+      const popupHtml = `
+        <strong>${o.title}</strong><br/>
+        Статус объекта: ${o.statusObject}<br/>
+        Статус проверки: ${o.statusCheck}<br/>
+        Готовность: ${o.percent}%<br/>
+        Нарушений: ${o.violations}<br/>
+        Проверок: ${o.checks}<br/>
+        Ответственный: ${o.fio}
+      `;
+      marker.bindPopup(popupHtml).openPopup();
+    });
   });
 }
 
