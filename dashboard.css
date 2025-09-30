@@ -14,7 +14,7 @@
 }
 
 [data-theme="dark"] {
-  --bg-color: #1e003e;
+  --bg-color: linear-gradient(135deg, #1e003e, #b71c8d); 
   --text-color: #f7f9fc;
   --sidebar-bg: #1c1c1c;
   --sidebar-text: #fff;
